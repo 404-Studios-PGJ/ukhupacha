@@ -8,38 +8,70 @@ var velocidad_correr : float = 140.0
 
 var direccion_mirando : String = "abajo"
 
+# Variables para el salto
+var saltando : bool = false
+var altura_salto : float = 0.0
+var velocidad_vertical : float = 0.0
+const GRAVEDAD_SALTO : float = 300.0
+const FUERZA_SALTO : float = 120.0
+
 func _ready() -> void:
 	pass
 
-func _physics_process(_delta: float) -> void:
-	# Dirección del jugador
-	var direccion : Vector2 = Input.get_vector("izquierda", "derecha", "arriba", "abajo")
+func _physics_process(delta: float) -> void:
+	if not saltando:
+		var direccion : Vector2 = Input.get_vector("izquierda", "derecha", "arriba", "abajo")
+		var corriendo : bool = Input.is_action_pressed("correr")
+		
+		var velocidad_actual : float = velocidad_caminar
+		if corriendo:
+			velocidad_actual = velocidad_correr
+		
+		velocity = direccion * velocidad_actual
+		move_and_slide()
+		
+		if Input.is_action_just_pressed("saltar"):
+			iniciar_salto()
+		else:
+			actualizar_animacion(direccion, corriendo)
+	else:
+		procesar_salto(delta)
+
+func iniciar_salto() -> void:
+	saltando = true
+	velocidad_vertical = FUERZA_SALTO
+	reproductor_animacion.play("salto_" + direccion_mirando)
+
+func procesar_salto(delta: float) -> void:
+	altura_salto += velocidad_vertical * delta
+	velocidad_vertical -= GRAVEDAD_SALTO * delta
 	
-	# Determinar si está corriendo
-	var corriendo : bool = Input.is_action_pressed("correr")
+	# Eleva visualmente el sprite mientras salta
+	sprite.position.y = -altura_salto
 	
-	# Determinar la velocidad actual
-	var velocidad_actual : float = velocidad_correr if corriendo else velocidad_caminar
-	
-	velocity = direccion * velocidad_actual
 	move_and_slide()
 	
-	actualizar_animacion(direccion, corriendo)
+	if altura_salto <= 0.0:
+		altura_salto = 0.0
+		sprite.position.y = 0.0
+		saltando = false
 
 func actualizar_animacion(direccion: Vector2, corriendo: bool) -> void:
 	if direccion != Vector2.ZERO:
-		# Determinar la dirección a la que mira el personaje
 		if abs(direccion.x) > abs(direccion.y):
 			direccion_mirando = "lado"
 			sprite.flip_h = direccion.x < 0
 		else:
 			sprite.flip_h = false
-			direccion_mirando = "abajo" if direccion.y > 0 else "arriba"
+			if direccion.y > 0:
+				direccion_mirando = "abajo"
+			else:
+				direccion_mirando = "arriba"
 		
-		# Seleccionar estado (caminar o correr)
-		var estado : String = "correr" if corriendo else "caminar"
+		var estado : String = "caminar"
+		if corriendo:
+			estado = "correr"
+			
 		reproductor_animacion.play(estado + "_" + direccion_mirando)
-		
 	else:
-		# Reproducir la animación de estar quieto según la última dirección
 		reproductor_animacion.play("quieto_" + direccion_mirando)
