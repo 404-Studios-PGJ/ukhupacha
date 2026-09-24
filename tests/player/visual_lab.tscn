@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://cvisual_lab_scene"]
+
+[ext_resource type="Script" path="res://tests/player/visual_lab.gd" id="1_vislab"]
+[ext_resource type="PackedScene" uid="uid://gyfcjj3isq0c" path="res://actors/player/player.tscn" id="2_player"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bottom"]
+normal = Vector2(0, -1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_left"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_right"]
+normal = Vector2(-1, 0)
+
+[node name="VisualLab" type="Node2D"]
+script = ExtResource("1_vislab")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.12, 0.14, 0.18, 1)
+
+[node name="FloorGrid" type="Node2D" parent="."]
+
+[node name="ArenaFloor" type="ColorRect" parent="FloorGrid"]
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 420.0
+offset_bottom = 320.0
+color = Color(0.18, 0.20, 0.26, 1)
+
+[node name="FeetGuideCrosshair" type="ColorRect" parent="FloorGrid"]
+offset_left = 239.0
+offset_top = 179.0
+offset_right = 241.0
+offset_bottom = 181.0
+color = Color(1, 0.3, 0.3, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="WallTop" type="CollisionShape2D" parent="Walls"]
+position = Vector2(240, 40)
+shape = SubResource("WorldBoundaryShape2D_top")
+
+[node name="WallBottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(240, 320)
+shape = SubResource("WorldBoundaryShape2D_bottom")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Walls"]
+position = Vector2(60, 180)
+shape = SubResource("WorldBoundaryShape2D_left")
+
+[node name="WallRight" type="CollisionShape2D" parent="Walls"]
+position = Vector2(420, 180)
+shape = SubResource("WorldBoundaryShape2D_right")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(240, 180)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 430.0
+offset_top = 10.0
+offset_right = 630.0
+offset_bottom = 350.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LblInfo" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Cargando..."
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnT0" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[1] T0 Puños"
+
+[node name="BtnSword" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[2] T1 Espada"
+
+[node name="BtnAxe" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[3] T1 Hacha"
+
+[node name="BtnShield" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[4] T1 Solo Escudo"
+
+[node name="BtnSwordShield" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[5] T1 Espada + Escudo"
+
+[node name="BtnAxeShield" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "[6] T1 Hacha + Escudo"
+
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnT0" to="." method="_on_btn_t0_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnSword" to="." method="_on_btn_sword_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnAxe" to="." method="_on_btn_axe_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnShield" to="." method="_on_btn_shield_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnSwordShield" to="." method="_on_btn_sword_shield_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnAxeShield" to="." method="_on_btn_axe_shield_pressed"]
