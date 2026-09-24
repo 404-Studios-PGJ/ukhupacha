@@ -54,3 +54,6 @@ func _set_focus(item: Interactable) -> void:
 	focused = item
 	if is_instance_valid(focused):
 		focused.set_focused(true)
+	var hud: Node = get_tree().get_first_node_in_group(&"game_hud")
+	if is_instance_valid(hud) and hud.has_method("set_prompt"):
+		hud.call("set_prompt", focused.display_name if is_instance_valid(focused) else "")

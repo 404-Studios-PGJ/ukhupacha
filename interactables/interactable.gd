@@ -27,7 +27,8 @@ func _ready() -> void:
 	_prompt = Label.new()
 	_prompt.text = "E"
 	_prompt.position = Vector2(-5, -32)
-	_prompt.add_theme_font_size_override("font_size", 14)
+	_prompt.theme = UIAssets.theme_resource()
+	_prompt.theme_type_variation = &"Accent"
 	_prompt.visible = false
 	add_child(_prompt)
 	queue_redraw()
