@@ -13,7 +13,7 @@ var tier: int = 1
 var current_action: String = "stand"
 var current_direction: String = "down"
 
-var frame_index: int = 0
+var frame_index: int = 0   # índice lógico dentro de la secuencia actual
 var total_frames: int = 1
 var frame_timer: float = 0.0
 var fps: float = 6.0
@@ -25,13 +25,24 @@ var is_playing: bool = true
 # Cache textures in memory to prevent repeated disk I/O
 var _texture_cache: Dictionary = {}
 
-# Explicit mapping table for tier 0 and tier 1
+# Secuencia actual: cada elemento es {tex: Texture2D, frame: int, fps: float}
+# Se usa cuando la animación necesita combinar frames de múltiples strips.
+var _sequence: Array = []  # Array of {tex, frame, dur}  (dur en segundos)
+var _use_sequence: bool = false
+
+# ============================================================
+# Explicit mapping table - tier 0 and tier 1
+# run de T0 usa "run_sequence" porque mezcla walk+run strips
+# ============================================================
 const SPRITE_TABLE: Dictionary = {
 	# tier 0 (unarmed / none)
 	[&"none", false]: {
 		"stand": {"path": "res://assets/characters/player/p1/mc_p1_boxr_v01_base/stand", "frames": 1, "fps": 1.0, "loop": true},
+		# walk: 6 frames, 135ms/frame
 		"walk": {"path": "res://assets/characters/player/p1/mc_p1_boxr_v01_base/walk", "frames": 6, "fps": 7.4, "loop": true},
-		"run": {"path": "res://assets/characters/player/p1/mc_p1_boxr_v01_base/run", "frames": 2, "fps": 6.0, "loop": true},
+		# run: secuencia Mana Seed 1,2,7,4,5,8 → índices 0-based: 0,1,RUN0,3,4,RUN1
+		# timings ms: 80/55/125/80/55/125 → fps por frame
+		"run": {"run_sequence": true, "walk_path": "res://assets/characters/player/p1/mc_p1_boxr_v01_base/walk", "run_path": "res://assets/characters/player/p1/mc_p1_boxr_v01_base/run", "loop": true},
 		"slash1": {"path": "res://assets/characters/player/pONE3/mc_t0_base/slash1", "frames": 4, "fps": 12.0, "loop": false},
 		"slash2": {"path": "res://assets/characters/player/pONE3/mc_t0_base/slash2", "frames": 4, "fps": 12.0, "loop": false},
 		"dodge": {"path": "res://assets/characters/player/pONE1/mc_pONE1_boxr_v01_base/dodge", "frames": 1, "fps": 5.0, "loop": false},
@@ -116,7 +127,14 @@ func _ready() -> void:
 	_apply_animation()
 
 func _process(delta: float) -> void:
-	if not is_playing or total_frames <= 1 or fps <= 0.0:
+	if not is_playing:
+		return
+	
+	if _use_sequence:
+		_process_sequence(delta)
+		return
+	
+	if total_frames <= 1 or fps <= 0.0:
 		return
 	
 	frame_timer += delta
@@ -134,6 +152,71 @@ func _process(delta: float) -> void:
 		else:
 			frame_index = next_frame
 			_update_sprite_frame()
+
+# ---- Sequence mode (para run T0 de Mana Seed) ----
+# _sequence: Array de {tex: Texture2D, frame: int, dur: float}
+func _process_sequence(delta: float) -> void:
+	if _sequence.is_empty():
+		return
+	
+	frame_timer += delta
+	var step: Dictionary = _sequence[frame_index]
+	if frame_timer >= step["dur"]:
+		frame_timer -= step["dur"]
+		var next: int = frame_index + 1
+		if next >= _sequence.size():
+			if is_looping:
+				frame_index = 0
+			else:
+				is_playing = false
+				animation_finished.emit(current_action)
+				return
+		else:
+			frame_index = next
+		_update_sequence_frame()
+
+func _update_sequence_frame() -> void:
+	if sprite == null or _sequence.is_empty():
+		return
+	var step: Dictionary = _sequence[frame_index]
+	sprite.texture = step["tex"]
+	sprite.hframes = step["hframes"]
+	sprite.vframes = 1
+	sprite.frame = step["frame"]
+	frame_changed.emit(frame_index, _sequence.size())
+
+func _build_run_sequence(dir: String) -> void:
+	# Mana Seed run sequence: frames 0,1,RUN0,3,4,RUN1 del walk strip
+	# Timings (ms): 80, 55, 125, 80, 55, 125
+	var entry = get_action_entry("run")
+	var walk_path: String = "%s/%s.png" % [entry["walk_path"], dir]
+	var run_path: String = "%s/%s.png" % [entry["run_path"], dir]
+	
+	var walk_tex: Texture2D = _get_texture(walk_path)
+	var run_tex: Texture2D = _get_texture(run_path)
+	
+	if walk_tex == null or run_tex == null:
+		push_error("PlayerVisual: Could not load walk/run textures for sequence")
+		return
+	
+	# Duraciones en segundos
+	const MS_TO_S: float = 0.001
+	var durs: Array[float] = [80.0*MS_TO_S, 55.0*MS_TO_S, 125.0*MS_TO_S,
+	                          80.0*MS_TO_S, 55.0*MS_TO_S, 125.0*MS_TO_S]
+	
+	_sequence = [
+		{"tex": walk_tex, "frame": 0, "hframes": 6, "dur": durs[0]},  # walk frame 1
+		{"tex": walk_tex, "frame": 1, "hframes": 6, "dur": durs[1]},  # walk frame 2
+		{"tex": run_tex,  "frame": 0, "hframes": 2, "dur": durs[2]},  # run frame 7 (alt frame 3)
+		{"tex": walk_tex, "frame": 3, "hframes": 6, "dur": durs[3]},  # walk frame 4
+		{"tex": walk_tex, "frame": 4, "hframes": 6, "dur": durs[4]},  # walk frame 5
+		{"tex": run_tex,  "frame": 1, "hframes": 2, "dur": durs[5]},  # run frame 8 (alt frame 6)
+	]
+	
+	_use_sequence = true
+	total_frames = _sequence.size()
+
+# ---- API pública ----
 
 func set_equipment(p_weapon_id: StringName, p_has_shield: bool, p_tier: int = 1) -> void:
 	weapon_id = p_weapon_id
@@ -171,7 +254,10 @@ func restart() -> void:
 	frame_index = 0
 	frame_timer = 0.0
 	is_playing = true
-	_update_sprite_frame()
+	if _use_sequence:
+		_update_sequence_frame()
+	else:
+		_update_sprite_frame()
 
 func get_action_entry(action: String) -> Dictionary:
 	for key in SPRITE_TABLE:
@@ -180,7 +266,7 @@ func get_action_entry(action: String) -> Dictionary:
 			if acts.has(action):
 				return acts[action]
 	
-	# Fallback to none, false
+	# Fallback a none, false
 	for key in SPRITE_TABLE:
 		if key[0] == &"none" and key[1] == false:
 			var acts: Dictionary = SPRITE_TABLE[key]
@@ -192,6 +278,9 @@ func _apply_animation(reset_frame: bool = true, custom_fps: float = -1.0, loop_o
 	if sprite == null:
 		return
 	
+	_use_sequence = false
+	_sequence.clear()
+	
 	var entry: Dictionary = get_action_entry(current_action)
 	if entry.is_empty():
 		push_warning("PlayerVisual: No animation entry for action '%s', weapon '%s', shield '%s'" % [current_action, weapon_id, has_shield])
@@ -201,6 +290,21 @@ func _apply_animation(reset_frame: bool = true, custom_fps: float = -1.0, loop_o
 	if dir not in ["down", "up", "left", "right"]:
 		dir = "down"
 	
+	# Modo secuencia: run T0 de Mana Seed
+	if entry.get("run_sequence", false):
+		is_looping = entry.get("loop", true)
+		if reset_frame:
+			frame_index = 0
+			frame_timer = 0.0
+		_build_run_sequence(dir)
+		if not _sequence.is_empty():
+			sprite.position = base_offset
+			sprite.centered = true
+			is_playing = true
+			_update_sequence_frame()
+		return
+	
+	# Modo normal
 	var texture_path: String = "%s/%s.png" % [entry["path"], dir]
 	var tex: Texture2D = _get_texture(texture_path)
 	if tex == null:
