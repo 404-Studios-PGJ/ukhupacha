@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://tests/interactables/audio_lab.gd" id="1"]
+[ext_resource type="PackedScene" path="res://tests/interactables/test_player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://audio/music_region.tscn" id="3"]
+
+[node name="AudioLab" type="Node2D"]
+script = ExtResource("1")
+
+[node name="TestPlayer" parent="." instance=ExtResource("2")]
+position = Vector2(10, 10)
+
+[node name="MusicRegionA" parent="." instance=ExtResource("3")]
+position = Vector2(100, 180)
+
+[node name="MusicRegionB" parent="." instance=ExtResource("3")]
+position = Vector2(300, 180)
+
+[node name="MusicRegionC" parent="." instance=ExtResource("3")]
+position = Vector2(520, 180)

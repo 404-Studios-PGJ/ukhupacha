@@ -150,7 +150,9 @@ Por nombre o propiedad exportada, jamás índice de hijo:
    explícitamente de ella. Laboratorio usa Player mínimo propio.
 3. Jhon migra visual/combate, grupo e input gate; Gian base/variantes/élite;
    Nayeli blockout/props y contenido cultural. Sus pruebas deben preceder consumo.
-4. UI/audio e integración completa después, fuera del alcance actual.
+4. `feat/ui-flow` depende de `feat/level-interactions` (6635f5d).
+5. `feat/audio-narrative` depende de `feat/ui-flow` (f112eb3).
+   Integración completa de las cinco salas y export quedan fuera de alcance.
 
 Los README sugieren ramas desde main; esta entrega aplica la instrucción de
 Kevin de ramas apiladas. El permiso futuro del README para editar niveles o
@@ -158,7 +160,8 @@ Playground no aplica aquí: esos archivos están prohibidos en estos bloques.
 La API antigua de Player todavía no garantiza equipo, salud ni bloqueo.
 
 Contenido cultural pendiente: `TODO_CULTURAL` hasta fuentes/textos de Nayeli.
-Licencias de los PNG seleccionados pendientes: `TODO_LICENSE`; no se inventan
-autores/permisos. Los 37 PNG y la documentación Hybrid v2 preexistentes quedan
-sin incorporar en estos bloques; las vistas funcionales usan geometría propia
-y texto runtime. El acabado completo Hybrid v2 pertenece a UI posterior.
+Los bloques 3/4 incorporan los 37 PNG, UI Hybrid v2 de Controls y audio sintético.
+Ver docs/credits/ASSETS.md para atribución Crusenho y condiciones por archivo;
+TODO_LICENSE permanece donde la licencia no está resuelta. No se inventan
+autores/permisos ni contenido cultural. Música requiere registrar enemigos
+con MusicDirector.watch_enemy y colocar MusicRegionA/B/C en la integración.
