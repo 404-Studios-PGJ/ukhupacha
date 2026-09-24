@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://tests/enemies/scripts/enemy_lab.gd" id="1_lab"]
 [ext_resource type="PackedScene" path="res://tests/enemies/player_dummy.tscn" id="2_dummy"]
-[ext_resource type="PackedScene" path="res://actors/enemies/helix_guard.tscn" id="3_guard"]
-[ext_resource type="PackedScene" path="res://actors/enemies/helix_heavy.tscn" id="4_heavy"]
-[ext_resource type="PackedScene" path="res://actors/enemies/helix_shield.tscn" id="5_shield"]
+[ext_resource type="PackedScene" path="res://actors/enemies/enemy_base.tscn" id="3_enemy"]
 
 [sub_resource type="RectangleShape2D" id="Shape_WallTop"]
 size = Vector2(640, 8)
@@ -168,14 +166,14 @@ offset_bottom = 30.0
 mouse_filter = 2
 color = Color(0.55, 0.36, 0.2, 1)
 
-[node name="Guard" parent="." instance=ExtResource("3_guard")]
+[node name="GuardSightWall" parent="." instance=ExtResource("3_enemy")]
 position = Vector2(110, 150)
 
-[node name="Heavy" parent="." instance=ExtResource("4_heavy")]
+[node name="GuardPatrol" parent="." instance=ExtResource("3_enemy")]
 position = Vector2(270, 110)
 patrol_points = Array[Vector2]([Vector2(-60, 0), Vector2(60, 0)])
 
-[node name="Shield" parent="." instance=ExtResource("5_shield")]
+[node name="GuardRoom" parent="." instance=ExtResource("3_enemy")]
 position = Vector2(540, 180)
 
 [node name="PlayerDummy" parent="." instance=ExtResource("2_dummy")]

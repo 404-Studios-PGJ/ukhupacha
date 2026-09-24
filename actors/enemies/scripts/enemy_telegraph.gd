@@ -12,34 +12,10 @@ const COLOR_RED : Color = Color("ff2a2a")
 const COLOR_OUTLINE : Color = Color("10131a")
 const BURST_TIME : float = 0.15
 const FONT_SIZE : int = 14
-## Cada aviso suena distinto para no depender solo del color.
-const SOUNDS : Dictionary = {
-	Mode.SUSPICIOUS: preload("res://actors/enemies/sfx/suspicious.wav"),
-	Mode.ALERT: preload("res://actors/enemies/sfx/alert.wav"),
-	Mode.ATTACK_WHITE: preload("res://actors/enemies/sfx/telegraph_white.wav"),
-	Mode.ATTACK_RED: preload("res://actors/enemies/sfx/telegraph_red.wav"),
-}
-const VOLUME_DB : Dictionary = {
-	Mode.SUSPICIOUS: -12.0,
-	Mode.ALERT: -8.0,
-	Mode.ATTACK_WHITE: -6.0,
-	Mode.ATTACK_RED: -2.0,
-}
-
-## Bus de audio de los avisos (por ejemplo, "SFX" cuando exista).
-@export var audio_bus : StringName = &"Master"
 
 var mode : Mode = Mode.NONE
 var _time_left : float = 0.0
 var _elapsed : float = 0.0
-var _audio : AudioStreamPlayer2D
-
-
-func _ready() -> void:
-	_audio = AudioStreamPlayer2D.new()
-	_audio.bus = audio_bus
-	_audio.max_distance = 400.0
-	add_child(_audio)
 
 
 func show_suspicious(seconds: float) -> void:
@@ -72,9 +48,6 @@ func _show(new_mode: Mode, seconds: float) -> void:
 	_time_left = seconds
 	_elapsed = 0.0
 	queue_redraw()
-	_audio.stream = SOUNDS[new_mode]
-	_audio.volume_db = VOLUME_DB[new_mode]
-	_audio.play()
 
 
 func _process(delta: float) -> void:

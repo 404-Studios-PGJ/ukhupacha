@@ -5,9 +5,6 @@ class_name EnemyStats extends Resource
 @export_group("Vida y movimiento")
 @export var max_hp : float = 40.0
 @export var move_speed : float = 45.0
-## Grados por segundo al girar; 0 = gira al instante.
-## Un giro lento permite rodear al enemigo y atacarle por la espalda.
-@export var turn_speed : float = 0.0
 
 @export_group("Percepción")
 ## Radio del DetectionArea y distancia máxima para ver al Player en reposo.
@@ -25,17 +22,11 @@ class_name EnemyStats extends Resource
 ## Distancia a la que empieza el windup y largo del AttackArea.
 @export var attack_range : float = 22.0
 @export var white_attack : EnemyAttack
-## Opcional. Sin white_attack, todos los ataques son rojos.
+## Opcional: si existe, se elige con red_attack_chance.
 @export var red_attack : EnemyAttack
-## Patrón fijo para que sea aprendible: cada N ataques, uno es rojo (0 = nunca).
-@export var red_attack_every : int = 0
+@export_range(0.0, 1.0) var red_attack_chance : float = 0.0
 @export var attack_cooldown : float = 0.2
 ## Aturdimiento cuando el Player hace parry.
 @export var parry_stagger_time : float = 1.0
 ## Pausa al recibir daño; cancela un windup o un golpe activo.
 @export var hurt_time : float = 0.2
-
-@export_group("Defensa")
-## Mitad del arco frontal que bloquea el escudo, en grados (0 = sin escudo).
-## Solo bloquea fuera de ataque, recuperación y stagger.
-@export var front_block_arc_deg : float = 0.0

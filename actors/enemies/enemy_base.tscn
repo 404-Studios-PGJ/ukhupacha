@@ -26,6 +26,7 @@ alert_time = 0.5
 investigate_time = 1.5
 attack_range = 22.0
 white_attack = SubResource("Resource_white_attack")
+red_attack_chance = 0.0
 attack_cooldown = 0.2
 parry_stagger_time = 1.0
 hurt_time = 0.2
@@ -88,7 +89,6 @@ monitorable = false
 shape = SubResource("CircleShape2D_detection")
 
 [node name="Telegraph" type="Node2D" parent="."]
-z_index = 20
 position = Vector2(0, -44)
 script = ExtResource("5_telegraph")
 
