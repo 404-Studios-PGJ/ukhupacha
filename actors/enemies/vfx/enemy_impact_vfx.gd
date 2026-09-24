@@ -29,7 +29,8 @@ static func spawn(host: Node2D, at: Vector2, vfx_kind: Kind, towards: Vector2 = 
 	vfx.kind = vfx_kind
 	vfx.direction = towards.normalized() if towards != Vector2.ZERO else Vector2.RIGHT
 	vfx.position = (parent as Node2D).to_local(at) if parent is Node2D else at
-	vfx.z_index = 10
+	# Por encima de los tiles y decorados del nivel.
+	vfx.z_index = 20
 	# Diferido: suele llamarse desde callbacks de física.
 	parent.add_child.call_deferred(vfx)
 

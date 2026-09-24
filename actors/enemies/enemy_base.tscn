@@ -88,6 +88,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_detection")
 
 [node name="Telegraph" type="Node2D" parent="."]
+z_index = 20
 position = Vector2(0, -44)
 script = ExtResource("5_telegraph")
 

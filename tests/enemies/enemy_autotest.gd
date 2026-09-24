@@ -35,6 +35,16 @@ func _run() -> void:
 	await _wait(1.0)
 	_check("pared bloquea la visión", guard.state == EnemyBase.State.IDLE)
 
+	# Sonidos del laboratorio: ataque al aire y puerta.
+	_dummy.attack()
+	_check("whoosh al atacar al aire", _dummy._swing_audio.playing)
+	_lab._toggle_door()
+	_check("sonido al abrir la puerta", _lab._door_audio.playing)
+	_lab._door_audio.stop()
+	_lab._toggle_door()
+	_check("mismo sonido al cerrar la puerta", _lab._door_audio.playing)
+	await _wait(0.3)
+
 	_dummy.global_position = Vector2(425, 180)
 	await _wait(1.0)
 	_check("puerta cerrada bloquea la visión", shield.state == EnemyBase.State.IDLE)
@@ -44,6 +54,7 @@ func _run() -> void:
 	_dummy.global_position = Vector2(200, 150)
 	await _wait(0.1)
 	_check("ve al Player: SUSPICIOUS", guard.state == EnemyBase.State.SUSPICIOUS)
+	_check("sonido de sospecha", _plays(guard, EnemyTelegraph.Mode.SUSPICIOUS))
 	await _wait(0.6)
 	_check("tras 0,5 s persigue", guard.state == EnemyBase.State.CHASE)
 	_check("enemy_alerted una vez", _signal_count(guard, "enemy_alerted") == 1)
@@ -124,6 +135,7 @@ func _test_heavy(heavy: EnemyBase) -> void:
 	await _until(func() -> bool:
 		return heavy.state == EnemyBase.State.WINDUP and heavy.current_attack.kind == EnemyAttack.Kind.RED, 20.0)
 	heavy.take_hit(1.0, _dummy)
+	_check("pesado: sonido de aviso rojo", _plays(heavy, EnemyTelegraph.Mode.ATTACK_RED))
 	_check("pesado: golpe no cancela windup rojo", heavy.state == EnemyBase.State.WINDUP)
 	start = _hits.size()
 	await _until(func() -> bool: return _hits.size() > start, 2.0)
@@ -156,6 +168,17 @@ func _test_shield(shield: EnemyBase) -> void:
 	_check("escudo: golpe frontal en recovery", shield.take_hit(5.0, _dummy) == &"DAMAGED"
 			and shield.hp < hp_before)
 
+	# Contacto con un enemigo: no suena el whoosh.
+	var to_shield := _dummy.global_position.direction_to(shield.global_position)
+	_dummy.global_position = shield.global_position - to_shield * 14.0
+	_dummy.facing = to_shield
+	_dummy.attack_pivot.rotation = to_shield.angle()
+	_dummy._swing_audio.stop()
+	await physics_frame
+	await physics_frame
+	_dummy.attack()
+	_check("sin whoosh al tocar un enemigo", not _dummy._swing_audio.playing)
+
 	# Giro lento: si el Player salta a su espalda, no se da vuelta al instante.
 	await _until(func() -> bool: return shield.state == EnemyBase.State.CHASE, 3.0)
 	_dummy.global_position = shield.global_position - shield.facing * 22.0
@@ -165,6 +188,11 @@ func _test_shield(shield: EnemyBase) -> void:
 	shield.stagger(1.0)
 	_dummy.global_position = shield.global_position + shield.facing * 20.0
 	_check("escudo: aturdido recibe crítico de frente", shield.take_hit(20.0, _dummy, true) == &"DAMAGED")
+
+
+func _plays(enemy: EnemyBase, mode: EnemyTelegraph.Mode) -> bool:
+	var audio : AudioStreamPlayer2D = enemy.telegraph._audio
+	return audio.playing and audio.stream == EnemyTelegraph.SOUNDS[mode]
 
 
 func _check(label: String, condition: bool) -> void:

@@ -16,6 +16,7 @@ const ATTACK_DAMAGE : float = 10.0
 const ATTACK_TIME : float = 0.25
 const CRITICAL_MULTIPLIER : float = 2.0
 const DEFENSE_NAMES : Array[String] = ["sin defensa", "parry", "esquiva", "bloqueo"]
+const SWING_MISS_SOUND : AudioStream = preload("res://tests/enemies/sfx/swing_miss.wav")
 
 @export var max_hp : float = 100.0
 
@@ -26,6 +27,7 @@ var last_result : StringName = &""
 
 var _attack_timer : float = 0.0
 var _flash_time : float = 0.0
+var _swing_audio : AudioStreamPlayer2D
 
 @onready var attack_pivot : Node2D = $AttackPivot
 @onready var attack_area : Area2D = $AttackPivot/AttackArea
@@ -33,6 +35,10 @@ var _flash_time : float = 0.0
 
 func _ready() -> void:
 	hp = max_hp
+	_swing_audio = AudioStreamPlayer2D.new()
+	_swing_audio.stream = SWING_MISS_SOUND
+	_swing_audio.volume_db = -6.0
+	add_child(_swing_audio)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -66,6 +72,7 @@ func _physics_process(delta: float) -> void:
 
 func attack() -> void:
 	_attack_timer = ATTACK_TIME
+	var touched := false
 	for area in attack_area.get_overlapping_areas():
 		var enemy := area.get_parent()
 		if enemy.has_method("take_hit"):
@@ -73,6 +80,10 @@ func attack() -> void:
 			var damage := ATTACK_DAMAGE * (CRITICAL_MULTIPLIER if critical else 1.0)
 			var result : StringName = enemy.take_hit(damage, self, critical)
 			attack_resolved.emit(enemy, result)
+			touched = true
+	# Solo suena al cortar el aire; un golpe o un bloqueo cuentan como contacto.
+	if not touched:
+		_swing_audio.play()
 
 
 func receive_hit(hit: Dictionary) -> StringName:
