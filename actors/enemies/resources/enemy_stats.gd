@@ -24,6 +24,8 @@ class_name EnemyStats extends Resource
 @export_group("Combate")
 ## Distancia a la que empieza el windup y largo del AttackArea.
 @export var attack_range : float = 22.0
+## Ancho del AttackArea (perpendicular al golpe).
+@export var attack_width : float = 16.0
 @export var white_attack : EnemyAttack
 ## Opcional. Sin white_attack, todos los ataques son rojos.
 @export var red_attack : EnemyAttack

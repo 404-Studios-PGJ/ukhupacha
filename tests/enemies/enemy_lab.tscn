@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://actors/enemies/helix_guard.tscn" id="3_guard"]
 [ext_resource type="PackedScene" path="res://actors/enemies/helix_heavy.tscn" id="4_heavy"]
 [ext_resource type="PackedScene" path="res://actors/enemies/helix_shield.tscn" id="5_shield"]
+[ext_resource type="PackedScene" path="res://actors/enemies/helix_elite.tscn" id="6_elite"]
 
 [sub_resource type="RectangleShape2D" id="Shape_WallTop"]
 size = Vector2(640, 8)
@@ -113,7 +114,7 @@ mouse_filter = 2
 color = Color(0.42, 0.45, 0.52, 1)
 
 [node name="Pillar" type="StaticBody2D" parent="."]
-position = Vector2(300, 250)
+position = Vector2(215, 255)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar"]
 shape = SubResource("Shape_Pillar")
@@ -177,6 +178,9 @@ patrol_points = Array[Vector2]([Vector2(-60, 0), Vector2(60, 0)])
 
 [node name="Shield" parent="." instance=ExtResource("5_shield")]
 position = Vector2(540, 180)
+
+[node name="Elite" parent="." instance=ExtResource("6_elite")]
+position = Vector2(330, 300)
 
 [node name="PlayerDummy" parent="." instance=ExtResource("2_dummy")]
 position = Vector2(110, 250)

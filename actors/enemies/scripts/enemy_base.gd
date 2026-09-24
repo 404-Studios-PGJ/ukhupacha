@@ -22,7 +22,6 @@ const TARGET_OFFSET : Vector2 = Vector2(0, -10)
 const ARRIVE_DISTANCE : float = 4.0
 const STUCK_TIME : float = 1.0
 const LOOK_AROUND_STEP : float = 0.5
-const ATTACK_AREA_WIDTH : float = 16.0
 ## Tolerancia de orientación para empezar un ataque con giro lento.
 const ATTACK_FACING_TOLERANCE : float = deg_to_rad(30.0)
 
@@ -56,6 +55,7 @@ var current_attack : EnemyAttack
 var current_attack_id : int = -1
 
 var _state_time : float = 0.0
+var _state_duration : float = 0.0
 var _lost_time : float = 0.0
 var _cooldown : float = 0.0
 var _alerted : bool = false
@@ -84,7 +84,7 @@ func _ready() -> void:
 	detection_circle.radius = stats.detection_radius
 	detection_shape.shape = detection_circle
 	var attack_rect := attack_shape.shape.duplicate() as RectangleShape2D
-	attack_rect.size = Vector2(stats.attack_range, ATTACK_AREA_WIDTH)
+	attack_rect.size = Vector2(stats.attack_range, stats.attack_width)
 	attack_shape.shape = attack_rect
 	attack_shape.position = Vector2(stats.attack_range / 2.0, 0)
 	_set_attack_enabled(false)
@@ -173,8 +173,17 @@ func stagger(seconds: float) -> void:
 	_cancel_attack()
 	if state == State.STAGGER:
 		_state_time = maxf(_state_time, seconds)
+		_state_duration = maxf(_state_duration, _state_time)
 	else:
 		_enter(State.STAGGER, seconds)
+
+
+## Avance del estado actual entre 0 y 1; sirve para sincronizar animaciones
+## con windup, golpe y recuperación.
+func state_progress() -> float:
+	if _state_duration <= 0.0:
+		return 0.0
+	return clampf(1.0 - _state_time / _state_duration, 0.0, 1.0)
 
 
 func is_staggered() -> bool:
@@ -197,6 +206,7 @@ func is_shield_up() -> bool:
 func _enter(new_state: State, duration: float = 0.0) -> void:
 	state = new_state
 	_state_time = duration
+	_state_duration = duration
 	_stuck_time = 0.0
 	if new_state == State.INVESTIGATE:
 		_investigate_arrived = false

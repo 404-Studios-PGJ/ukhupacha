@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_stats.gd" id="1_stats"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/shield_white.tres" id="2_white"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/heavy_red.tres" id="3_red"]
+
+[resource]
+script = ExtResource("1_stats")
+max_hp = 100.0
+move_speed = 50.0
+turn_speed = 300.0
+attack_range = 40.0
+attack_width = 28.0
+white_attack = ExtResource("2_white")
+red_attack = ExtResource("3_red")
+red_attack_every = 2
