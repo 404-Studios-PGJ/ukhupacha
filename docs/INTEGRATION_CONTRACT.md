@@ -125,9 +125,14 @@ Los cambios emiten señales solo si cambia el valor; Nueva partida llama
 explícitamente `reset()`, que también restaura puertas/pickups y limpia selección
 del puzzle. No resetear por entrar o salir de una sala.
 
-Decisión única de Kevin, modificable: morir reinicia sala actual con HP/stamina
-completos, conserva equipo y flags; ofrecer Reintentar/Menú. No llama `reset()`.
-El flujo de muerte/menús queda para UI/integración, fuera de estos dos bloques.
+Revisión explícita de Kevin para el bloque 3: Nueva partida y Reintentar llaman
+`reset()`, reinician equipo y recuperan HP/stamina completos. Esta instrucción
+sustituye la decisión anterior de conservar flags/equipo al morir.
+UIFlow emite `restart_requested(reason: StringName)`; el host debe reconstruir
+o reiniciar Player/sala de forma síncrona y mantener el grupo `player`.
+Después UIFlow vuelve a enlazar HUD y consulta `get_hud_state()`.
+Sin host conectado la UI no inventa setters de salud ni realiza un reset parcial.
+El laboratorio implementa el host; integración/level1 queda fuera de alcance.
 
 ## Marcadores (Nayeli)
 
