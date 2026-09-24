@@ -11,6 +11,8 @@ enum Kind { WHITE, RED }
 ## Ventana en la que el AttackArea está encendida.
 @export var active : float = 0.10
 @export var recovery : float = 0.60
+## Con armadura, recibir daño durante el windup no cancela el ataque.
+@export var armored : bool = false
 
 
 func is_parryable() -> bool:

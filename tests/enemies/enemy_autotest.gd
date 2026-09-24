@@ -20,23 +20,24 @@ func _run() -> void:
 	root.add_child(_lab)
 	_dummy = _lab.get_node("PlayerDummy")
 	_dummy.hit_resolved.connect(func(hit: Dictionary, result: StringName) -> void:
-		_hits.append({"attack_id": hit.attack_id, "source": hit.source, "result": result}))
+		_hits.append({"attack_id": hit.attack_id, "source": hit.source, "result": result,
+				"damage": hit.damage, "parryable": hit.parryable}))
 	for enemy in get_nodes_in_group("enemies"):
 		for signal_name in ["enemy_alerted", "enemy_calmed", "enemy_died"]:
 			enemy.connect(signal_name, _count.bind(signal_name))
 
-	var guard : EnemyBase = _lab.get_node("GuardSightWall")
-	var patrol : EnemyBase = _lab.get_node("GuardPatrol")
-	var room : EnemyBase = _lab.get_node("GuardRoom")
+	var guard : EnemyBase = _lab.get_node("Guard")
+	var heavy : EnemyBase = _lab.get_node("Heavy")
+	var shield : EnemyBase = _lab.get_node("Shield")
 	# Solo un guardia activo por prueba.
-	patrol.process_mode = Node.PROCESS_MODE_DISABLED
+	heavy.process_mode = Node.PROCESS_MODE_DISABLED
 
 	await _wait(1.0)
 	_check("pared bloquea la visión", guard.state == EnemyBase.State.IDLE)
 
 	_dummy.global_position = Vector2(425, 180)
 	await _wait(1.0)
-	_check("puerta cerrada bloquea la visión", room.state == EnemyBase.State.IDLE)
+	_check("puerta cerrada bloquea la visión", shield.state == EnemyBase.State.IDLE)
 	_dummy.global_position = Vector2(110, 250)
 
 	# Sospecha y detección.
@@ -98,8 +99,72 @@ func _run() -> void:
 	_check("muerto sin colisión", guard.collision_layer == 0)
 	_check("muerto sin hitbox", not guard.attack_area.monitoring)
 
+	await _test_heavy(heavy)
+	await _test_shield(shield)
+
 	print("\n%s: %d fallos" % ["OK" if _failures == 0 else "FALLÓ", _failures])
 	quit(1 if _failures > 0 else 0)
+
+
+func _test_heavy(heavy: EnemyBase) -> void:
+	heavy.process_mode = Node.PROCESS_MODE_INHERIT
+	_dummy.defense = PlayerDummy.Defense.DODGE
+	_dummy.global_position = heavy.global_position + Vector2(0, 40)
+	var start := _hits.size()
+	await _until(func() -> bool: return _hits.size() >= start + 3, 15.0)
+	var h := _hits.slice(start)
+	_check("pesado: patrón blanco, blanco, rojo",
+			h.size() >= 3 and h[0].parryable and h[1].parryable and not h[2].parryable)
+	_check("pesado: blanco 14 y rojo 20",
+			h.size() >= 3 and is_equal_approx(h[0].damage, 14.0) and is_equal_approx(h[2].damage, 20.0))
+	_check("pesado: rojo esquivado", h.size() >= 3 and h[2].result == &"DODGED")
+
+	# El rojo no admite parry y su windup tiene armadura.
+	_dummy.defense = PlayerDummy.Defense.PARRY
+	await _until(func() -> bool:
+		return heavy.state == EnemyBase.State.WINDUP and heavy.current_attack.kind == EnemyAttack.Kind.RED, 20.0)
+	heavy.take_hit(1.0, _dummy)
+	_check("pesado: golpe no cancela windup rojo", heavy.state == EnemyBase.State.WINDUP)
+	start = _hits.size()
+	await _until(func() -> bool: return _hits.size() > start, 2.0)
+	_check("pesado: parry contra rojo = daño",
+			_hits.size() > start and _hits[start].result == &"DAMAGED" and not heavy.is_staggered())
+	heavy.take_hit(999.0, _dummy)
+
+
+func _test_shield(shield: EnemyBase) -> void:
+	# Estático: sin procesar, la orientación no cambia entre golpes.
+	shield.process_mode = Node.PROCESS_MODE_DISABLED
+	var f := shield.facing
+	_dummy.global_position = shield.global_position + f * 20.0
+	_check("escudo: bloquea de frente", shield.take_hit(10.0, _dummy) == &"BLOCKED")
+	_check("escudo: bloqueo sin daño", is_equal_approx(shield.hp, 60.0))
+	_dummy.global_position = shield.global_position + f.rotated(deg_to_rad(50.0)) * 20.0
+	_check("escudo: bloquea a 50°", shield.take_hit(10.0, _dummy) == &"BLOCKED")
+	_dummy.global_position = shield.global_position + f.orthogonal() * 20.0
+	_check("escudo: costado (90°) vulnerable", shield.take_hit(5.0, _dummy) == &"DAMAGED")
+	_dummy.global_position = shield.global_position - f * 20.0
+	_check("escudo: espalda vulnerable", shield.take_hit(5.0, _dummy) == &"DAMAGED")
+
+	# Dinámico: persigue, ataca y en recovery baja el escudo.
+	shield.process_mode = Node.PROCESS_MODE_INHERIT
+	_dummy.defense = PlayerDummy.Defense.DODGE
+	_dummy.global_position = shield.global_position + Vector2(-30, 0)
+	await _until(func() -> bool: return shield.state == EnemyBase.State.RECOVERY, 6.0)
+	_check("escudo: bajo en recovery", not shield.is_shield_up())
+	var hp_before := shield.hp
+	_check("escudo: golpe frontal en recovery", shield.take_hit(5.0, _dummy) == &"DAMAGED"
+			and shield.hp < hp_before)
+
+	# Giro lento: si el Player salta a su espalda, no se da vuelta al instante.
+	await _until(func() -> bool: return shield.state == EnemyBase.State.CHASE, 3.0)
+	_dummy.global_position = shield.global_position - shield.facing * 22.0
+	await physics_frame
+	_check("escudo: giro lento deja la espalda expuesta", shield.take_hit(5.0, _dummy) == &"DAMAGED")
+
+	shield.stagger(1.0)
+	_dummy.global_position = shield.global_position + shield.facing * 20.0
+	_check("escudo: aturdido recibe crítico de frente", shield.take_hit(20.0, _dummy, true) == &"DAMAGED")
 
 
 func _check(label: String, condition: bool) -> void:

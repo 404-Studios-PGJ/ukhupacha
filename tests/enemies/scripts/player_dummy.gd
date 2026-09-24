@@ -2,10 +2,11 @@ class_name PlayerDummy extends CharacterBody2D
 ## Player temporal del laboratorio de enemigos. Usa la misma firma
 ## receive_hit(hit) -> StringName que tendrá el Player real, pero la defensa
 ## se elige con teclas en vez de timing (eso lo implementa el Player de Jhon).
-##   1 = sin defensa   2 = parry   3 = esquiva   4 = bloqueo
+##   1 = sin defensa   2 = parry   3 = esquiva   4 = bloqueo (fila superior o numérico)
 ## WASD mover, Shift correr, clic izquierdo atacar (x2 si el enemigo está aturdido).
 
 signal hit_resolved(hit: Dictionary, result: StringName)
+signal attack_resolved(enemy: Node, result: StringName)
 
 enum Defense { NONE, PARRY, DODGE, BLOCK }
 
@@ -37,13 +38,13 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
-			KEY_1:
+			KEY_1, KEY_KP_1:
 				defense = Defense.NONE
-			KEY_2:
+			KEY_2, KEY_KP_2:
 				defense = Defense.PARRY
-			KEY_3:
+			KEY_3, KEY_KP_3:
 				defense = Defense.DODGE
-			KEY_4:
+			KEY_4, KEY_KP_4:
 				defense = Defense.BLOCK
 
 
@@ -70,7 +71,8 @@ func attack() -> void:
 		if enemy.has_method("take_hit"):
 			var critical : bool = enemy.has_method("is_staggered") and enemy.is_staggered()
 			var damage := ATTACK_DAMAGE * (CRITICAL_MULTIPLIER if critical else 1.0)
-			enemy.take_hit(damage, self, critical)
+			var result : StringName = enemy.take_hit(damage, self, critical)
+			attack_resolved.emit(enemy, result)
 
 
 func receive_hit(hit: Dictionary) -> StringName:

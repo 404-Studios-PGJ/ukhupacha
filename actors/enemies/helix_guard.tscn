@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://actors/enemies/enemy_base.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/guard_stats.tres" id="2_stats"]
+
+[node name="HelixGuard" instance=ExtResource("1_base")]
+stats = ExtResource("2_stats")
+
+[node name="Visual" parent="." index="1"]
+body_color = Color(0.239, 0.353, 0.502, 1)
+trim_color = Color(0.596, 0.757, 0.851, 1)

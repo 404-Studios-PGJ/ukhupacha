@@ -16,6 +16,8 @@ var _duplicate_hits : int = 0
 
 func _ready() -> void:
 	dummy.hit_resolved.connect(_on_hit_resolved)
+	dummy.attack_resolved.connect(func(enemy: Node, result: StringName) -> void:
+		_push("Tu golpe a %s -> %s" % [enemy.name, result]))
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.enemy_alerted.connect(_log.bind("alerta"))
 		enemy.enemy_calmed.connect(_log.bind("calma"))
