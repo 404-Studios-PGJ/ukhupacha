@@ -4,10 +4,12 @@ extends Node2D
 ##   E = abrir/cerrar puerta   R = reiniciar escena
 
 const MAX_LOG_LINES : int = 6
+const DOOR_SOUND : AudioStream = preload("res://tests/enemies/sfx/door.wav")
 
 var _events : Array[String] = []
 var _hits_per_attack : Dictionary = {}
 var _duplicate_hits : int = 0
+var _door_audio : AudioStreamPlayer2D
 
 @onready var dummy : PlayerDummy = $PlayerDummy
 @onready var hud : Label = $HUD/Label
@@ -15,7 +17,14 @@ var _duplicate_hits : int = 0
 
 
 func _ready() -> void:
+	# Mismo sonido al abrir y al cerrar, desde la posición de la puerta.
+	_door_audio = AudioStreamPlayer2D.new()
+	_door_audio.stream = DOOR_SOUND
+	_door_audio.volume_db = -4.0
+	door.add_child(_door_audio)
 	dummy.hit_resolved.connect(_on_hit_resolved)
+	dummy.attack_resolved.connect(func(enemy: Node, result: StringName) -> void:
+		_push("Tu golpe a %s -> %s" % [enemy.name, result]))
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.enemy_alerted.connect(_log.bind("alerta"))
 		enemy.enemy_calmed.connect(_log.bind("calma"))
@@ -64,4 +73,5 @@ func _toggle_door() -> void:
 	var closing := not door.visible
 	door.visible = closing
 	door.get_node("CollisionShape2D").set_deferred("disabled", not closing)
+	_door_audio.play()
 	_push("Puerta %s" % ("cerrada" if closing else "abierta"))

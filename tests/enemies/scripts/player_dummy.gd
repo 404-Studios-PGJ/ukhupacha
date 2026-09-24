@@ -2,10 +2,11 @@ class_name PlayerDummy extends CharacterBody2D
 ## Player temporal del laboratorio de enemigos. Usa la misma firma
 ## receive_hit(hit) -> StringName que tendrá el Player real, pero la defensa
 ## se elige con teclas en vez de timing (eso lo implementa el Player de Jhon).
-##   1 = sin defensa   2 = parry   3 = esquiva   4 = bloqueo
+##   1 = sin defensa   2 = parry   3 = esquiva   4 = bloqueo (fila superior o numérico)
 ## WASD mover, Shift correr, clic izquierdo atacar (x2 si el enemigo está aturdido).
 
 signal hit_resolved(hit: Dictionary, result: StringName)
+signal attack_resolved(enemy: Node, result: StringName)
 
 enum Defense { NONE, PARRY, DODGE, BLOCK }
 
@@ -15,6 +16,7 @@ const ATTACK_DAMAGE : float = 10.0
 const ATTACK_TIME : float = 0.25
 const CRITICAL_MULTIPLIER : float = 2.0
 const DEFENSE_NAMES : Array[String] = ["sin defensa", "parry", "esquiva", "bloqueo"]
+const SWING_MISS_SOUND : AudioStream = preload("res://tests/enemies/sfx/swing_miss.wav")
 
 @export var max_hp : float = 100.0
 
@@ -25,6 +27,7 @@ var last_result : StringName = &""
 
 var _attack_timer : float = 0.0
 var _flash_time : float = 0.0
+var _swing_audio : AudioStreamPlayer2D
 
 @onready var attack_pivot : Node2D = $AttackPivot
 @onready var attack_area : Area2D = $AttackPivot/AttackArea
@@ -32,18 +35,22 @@ var _flash_time : float = 0.0
 
 func _ready() -> void:
 	hp = max_hp
+	_swing_audio = AudioStreamPlayer2D.new()
+	_swing_audio.stream = SWING_MISS_SOUND
+	_swing_audio.volume_db = -6.0
+	add_child(_swing_audio)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
-			KEY_1:
+			KEY_1, KEY_KP_1:
 				defense = Defense.NONE
-			KEY_2:
+			KEY_2, KEY_KP_2:
 				defense = Defense.PARRY
-			KEY_3:
+			KEY_3, KEY_KP_3:
 				defense = Defense.DODGE
-			KEY_4:
+			KEY_4, KEY_KP_4:
 				defense = Defense.BLOCK
 
 
@@ -65,12 +72,18 @@ func _physics_process(delta: float) -> void:
 
 func attack() -> void:
 	_attack_timer = ATTACK_TIME
+	var touched := false
 	for area in attack_area.get_overlapping_areas():
 		var enemy := area.get_parent()
 		if enemy.has_method("take_hit"):
 			var critical : bool = enemy.has_method("is_staggered") and enemy.is_staggered()
 			var damage := ATTACK_DAMAGE * (CRITICAL_MULTIPLIER if critical else 1.0)
-			enemy.take_hit(damage, self, critical)
+			var result : StringName = enemy.take_hit(damage, self, critical)
+			attack_resolved.emit(enemy, result)
+			touched = true
+	# Solo suena al cortar el aire; un golpe o un bloqueo cuentan como contacto.
+	if not touched:
+		_swing_audio.play()
 
 
 func receive_hit(hit: Dictionary) -> StringName:
