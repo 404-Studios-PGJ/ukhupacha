@@ -23,8 +23,6 @@ const ARRIVE_DISTANCE : float = 4.0
 const STUCK_TIME : float = 1.0
 const LOOK_AROUND_STEP : float = 0.5
 const ATTACK_AREA_WIDTH : float = 16.0
-## Tolerancia de orientación para empezar un ataque con giro lento.
-const ATTACK_FACING_TOLERANCE : float = deg_to_rad(30.0)
 
 static var _attack_counter : int = 0
 
@@ -66,8 +64,6 @@ var _candidates : Array[Node2D] = []
 var _stuck_time : float = 0.0
 var _investigate_arrived : bool = false
 var _look_timer : float = 0.0
-var _desired_facing : Vector2 = Vector2.DOWN
-var _attack_index : int = 0
 
 
 func _ready() -> void:
@@ -92,8 +88,7 @@ func _ready() -> void:
 	detection_area.body_entered.connect(_on_detection_body_entered)
 	detection_area.body_exited.connect(_on_detection_body_exited)
 	_enter(State.PATROL if not patrol_points.is_empty() else State.IDLE)
-	_desired_facing = facing
-	_set_facing(facing)
+	_face(facing)
 
 
 func _physics_process(delta: float) -> void:
@@ -101,9 +96,6 @@ func _physics_process(delta: float) -> void:
 		return
 	_state_time -= delta
 	_cooldown = maxf(_cooldown - delta, 0.0)
-	if stats.turn_speed > 0.0 and not _facing_locked():
-		var step := deg_to_rad(stats.turn_speed) * delta
-		_set_facing(facing.rotated(clampf(facing.angle_to(_desired_facing), -step, step)))
 
 	match state:
 		State.IDLE:
@@ -141,29 +133,24 @@ func _physics_process(delta: float) -> void:
 func take_hit(amount: float, source: Node, was_critical: bool = false) -> StringName:
 	if state == State.DEAD:
 		return &"IGNORED"
-	var impact := global_position + EYE_OFFSET
-	if _blocks(source):
-		EnemyImpactVfx.spawn(self, impact + facing * 7.0, EnemyImpactVfx.Kind.BLOCK, facing)
-		_notice_attacker(source)
-		return &"BLOCKED"
-
 	hp = maxf(hp - amount, 0.0)
 	health_changed.emit(hp, stats.max_hp)
 	if visual.has_method("flash"):
 		visual.flash(was_critical)
-	EnemyImpactVfx.spawn(self, impact,
-			EnemyImpactVfx.Kind.CRITICAL if was_critical else EnemyImpactVfx.Kind.HIT)
 	if hp <= 0.0:
 		_die()
 		return &"DAMAGED"
 
 	# Un stagger no se reinicia: mantiene abierta la ventana de crítico.
-	# Un windup con armadura tampoco se cancela.
-	var armored := state == State.WINDUP and current_attack != null and current_attack.armored
-	if state != State.STAGGER and not armored:
+	if state != State.STAGGER:
 		_cancel_attack()
 		_enter(State.HURT, stats.hurt_time)
-	_notice_attacker(source)
+	if source is Node2D and source.has_method("receive_hit"):
+		target = source
+		last_known_position = target.global_position
+		_lost_time = 0.0
+		_face(target.global_position - global_position)
+		_alert()
 	return &"DAMAGED"
 
 
@@ -183,13 +170,6 @@ func is_staggered() -> bool:
 
 func is_dead() -> bool:
 	return state == State.DEAD
-
-
-## El escudo solo cubre fuera de ataque, recuperación y stagger.
-func is_shield_up() -> bool:
-	if stats.front_block_arc_deg <= 0.0:
-		return false
-	return state in [State.IDLE, State.PATROL, State.SUSPICIOUS, State.CHASE, State.INVESTIGATE, State.HURT]
 
 
 # --- Estados ------------------------------------------------------------------
@@ -259,7 +239,7 @@ func _process_chase(delta: float) -> void:
 	elif to_target.length() <= stats.attack_range:
 		velocity = Vector2.ZERO
 		_face(to_target)
-		if _cooldown <= 0.0 and absf(facing.angle_to(to_target)) <= ATTACK_FACING_TOLERANCE:
+		if _cooldown <= 0.0:
 			_start_windup()
 	else:
 		_move_towards(target.global_position)
@@ -342,10 +322,8 @@ func _return_to_route() -> void:
 # --- Combate ------------------------------------------------------------------
 
 func _start_windup() -> void:
-	_attack_index += 1
 	current_attack = stats.white_attack
-	if stats.red_attack and (current_attack == null \
-			or (stats.red_attack_every > 0 and _attack_index % stats.red_attack_every == 0)):
+	if stats.red_attack and (current_attack == null or randf() < stats.red_attack_chance):
 		current_attack = stats.red_attack
 	# La orientación queda fija durante el windup para que esquivar funcione.
 	_face(target.global_position - global_position)
@@ -369,8 +347,6 @@ func _apply_hits() -> void:
 		}
 		var result : Variant = receiver.receive_hit(hit)
 		if str(result) == "PARRIED":
-			EnemyImpactVfx.spawn(self, attack_pivot.global_position + facing * stats.attack_range * 0.6,
-					EnemyImpactVfx.Kind.PARRY)
 			stagger(stats.parry_stagger_time)
 			return
 
@@ -398,22 +374,6 @@ func _set_attack_enabled(enabled: bool) -> void:
 	attack_shape.set_deferred("disabled", not enabled)
 
 
-func _blocks(source: Node) -> bool:
-	if not is_shield_up() or not source is Node2D:
-		return false
-	var to_source := (source as Node2D).global_position - global_position
-	return absf(facing.angle_to(to_source)) <= deg_to_rad(stats.front_block_arc_deg)
-
-
-func _notice_attacker(source: Node) -> void:
-	if source is Node2D and source.has_method("receive_hit"):
-		target = source
-		last_known_position = target.global_position
-		_lost_time = 0.0
-		_face(target.global_position - global_position)
-		_alert()
-
-
 func _alert() -> void:
 	if _alerted:
 		return
@@ -432,7 +392,6 @@ func _die() -> void:
 	set_deferred("collision_mask", 0)
 	hurtbox.set_deferred("monitorable", false)
 	detection_area.set_deferred("monitoring", false)
-	EnemyImpactVfx.spawn(self, global_position + Vector2(0, -8), EnemyImpactVfx.Kind.DEATH)
 	enemy_died.emit(self)
 	if corpse_time >= 0.0:
 		get_tree().create_timer(corpse_time).timeout.connect(queue_free)
@@ -502,20 +461,11 @@ func _navigation_available() -> bool:
 	return not NavigationServer2D.map_get_regions(nav_agent.get_navigation_map()).is_empty()
 
 
-## Pide mirar hacia una dirección; con turn_speed > 0 el giro es gradual.
 func _face(direction: Vector2) -> void:
-	if direction == Vector2.ZERO or _facing_locked():
+	if direction == Vector2.ZERO:
 		return
-	_desired_facing = direction.normalized()
-	if stats.turn_speed <= 0.0:
-		_set_facing(_desired_facing)
-
-
-## Durante windup y golpe la orientación no cambia; aturdido tampoco gira.
-func _facing_locked() -> bool:
-	return state in [State.WINDUP, State.ACTIVE, State.STAGGER, State.DEAD]
-
-
-func _set_facing(direction: Vector2) -> void:
+	# Durante windup y golpe la orientación no cambia.
+	if state == State.WINDUP or state == State.ACTIVE:
+		return
 	facing = direction.normalized()
 	attack_pivot.rotation = facing.angle()
