@@ -29,8 +29,10 @@ func _run() -> void:
 	var guard : EnemyBase = _lab.get_node("Guard")
 	var heavy : EnemyBase = _lab.get_node("Heavy")
 	var shield : EnemyBase = _lab.get_node("Shield")
+	var elite : EnemyBase = _lab.get_node("Elite")
 	# Solo un guardia activo por prueba.
 	heavy.process_mode = Node.PROCESS_MODE_DISABLED
+	elite.process_mode = Node.PROCESS_MODE_DISABLED
 
 	await _wait(1.0)
 	_check("pared bloquea la visión", guard.state == EnemyBase.State.IDLE)
@@ -112,6 +114,7 @@ func _run() -> void:
 
 	await _test_heavy(heavy)
 	await _test_shield(shield)
+	await _test_elite(elite)
 
 	print("\n%s: %d fallos" % ["OK" if _failures == 0 else "FALLÓ", _failures])
 	quit(1 if _failures > 0 else 0)
@@ -188,6 +191,51 @@ func _test_shield(shield: EnemyBase) -> void:
 	shield.stagger(1.0)
 	_dummy.global_position = shield.global_position + shield.facing * 20.0
 	_check("escudo: aturdido recibe crítico de frente", shield.take_hit(20.0, _dummy, true) == &"DAMAGED")
+
+
+func _test_elite(elite: EnemyBase) -> void:
+	_check("élite: 100 HP", is_equal_approx(elite.hp, 100.0))
+	elite.process_mode = Node.PROCESS_MODE_INHERIT
+	_dummy.defense = PlayerDummy.Defense.DODGE
+	_dummy.global_position = elite.global_position + Vector2(-50, 0)
+	var start := _hits.size()
+
+	# Sincronía: en la ventana activa se ve un frame de golpe de la hoja blanca.
+	await _until(func() -> bool: return elite.state == EnemyBase.State.ACTIVE, 6.0)
+	await process_frame
+	var visual : EnemySpriteVisual = elite.visual
+	_check("élite: frame de golpe en la ventana activa",
+			visual.sprite.texture == visual.white_attack_sheet
+			and visual.sprite.frame in visual.white_active_frames)
+
+	await _until(func() -> bool: return _hits.size() >= start + 2, 8.0)
+	var h := _hits.slice(start)
+	_check("élite: alterna blanco 12 y rojo 20", h.size() >= 2
+			and h[0].parryable and is_equal_approx(h[0].damage, 12.0)
+			and not h[1].parryable and is_equal_approx(h[1].damage, 20.0))
+
+	# Vencible solo con parry al blanco, esquiva al rojo y críticos.
+	# Un solo crítico por aturdimiento, como jugando.
+	var hp_before := _dummy.hp
+	var criticals := 0
+	var hit_this_stagger := false
+	for i in ceili(60.0 * Engine.physics_ticks_per_second):
+		if elite.is_dead():
+			break
+		if elite.state == EnemyBase.State.WINDUP:
+			var red := elite.current_attack.kind == EnemyAttack.Kind.RED
+			_dummy.defense = PlayerDummy.Defense.DODGE if red else PlayerDummy.Defense.PARRY
+		if elite.is_staggered() and not hit_this_stagger:
+			elite.take_hit(20.0, _dummy, true)
+			criticals += 1
+			hit_this_stagger = true
+		elif not elite.is_staggered():
+			hit_this_stagger = false
+		await physics_frame
+	print("  élite vencida con %d críticos" % criticals)
+	_check("élite: vencible con parry, esquiva y crítico", elite.is_dead())
+	_check("élite: sin recibir daño al defender bien", is_equal_approx(_dummy.hp, hp_before))
+	_check("élite: enemy_died una vez", _signal_count(elite, "enemy_died") == 1)
 
 
 func _plays(enemy: EnemyBase, mode: EnemyTelegraph.Mode) -> bool:
