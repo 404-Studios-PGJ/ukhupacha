@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://ccombat_lab_scene"]
+
+[ext_resource type="Script" path="res://tests/player/combat_lab.gd" id="1_comblab"]
+[ext_resource type="PackedScene" uid="uid://gyfcjj3isq0c" path="res://actors/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://cdummy_training_scene" path="res://tests/player/dummy.tscn" id="3_dummy"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bottom"]
+normal = Vector2(0, -1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_left"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_right"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_block"]
+size = Vector2(120, 16)
+
+[node name="CombatLab" type="Node2D"]
+script = ExtResource("1_comblab")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.1, 0.12, 0.15, 1)
+
+[node name="ArenaFloor" type="ColorRect" parent="."]
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 410.0
+offset_bottom = 330.0
+color = Color(0.16, 0.18, 0.22, 1)
+
+[node name="WallLabel" type="Label" parent="."]
+offset_left = 130.0
+offset_top = 100.0
+offset_right = 270.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 8
+text = "[Muro prueba de colisión]"
+horizontal_alignment = 1
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="WallTop" type="CollisionShape2D" parent="Walls"]
+position = Vector2(225, 30)
+shape = SubResource("WorldBoundaryShape2D_top")
+
+[node name="WallBottom" type="CollisionShape2D" parent="Walls"]
+position = Vector2(225, 330)
+shape = SubResource("WorldBoundaryShape2D_bottom")
+
+[node name="WallLeft" type="CollisionShape2D" parent="Walls"]
+position = Vector2(40, 180)
+shape = SubResource("WorldBoundaryShape2D_left")
+
+[node name="WallRight" type="CollisionShape2D" parent="Walls"]
+position = Vector2(410, 180)
+shape = SubResource("WorldBoundaryShape2D_right")
+
+[node name="DividingWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(200, 120)
+shape = SubResource("RectangleShape2D_wall_block")
+
+[node name="DividingWallVisual" type="ColorRect" parent="Walls/DividingWall"]
+offset_left = -60.0
+offset_top = -8.0
+offset_right = 60.0
+offset_bottom = 8.0
+color = Color(0.4, 0.45, 0.5, 1)
+
+[node name="DummyArena" parent="." instance=ExtResource("3_dummy")]
+position = Vector2(260, 200)
+
+[node name="DummyBehindWall" parent="." instance=ExtResource("3_dummy")]
+position = Vector2(200, 80)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(200, 200)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 415.0
+offset_top = 10.0
+offset_right = 635.0
+offset_bottom = 350.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LblCombatInfo" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Cargando..."
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnWhiteAttack" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "[J] Ataque Blanco (Parry/Guardia)"
+
+[node name="BtnRedAttack" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "[K] Ataque Rojo (Esquiva Requerida)"
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnForceParrySuccess" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Forzar 100% Parry Éxito (Stagger 1s)"
+
+[node name="BtnForceParryFail" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Forzar 100% Fallo Fortuito (5%)"
+
+[node name="BtnResetParryRNG" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Restaurar RNG Normal (95% / 5%)"
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnReset" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "[R] Reiniciar Laboratorio"
+
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnWhiteAttack" to="." method="_on_btn_white_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnRedAttack" to="." method="_on_btn_red_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnForceParrySuccess" to="." method="_on_btn_force_parry_success_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnForceParryFail" to="." method="_on_btn_force_parry_fail_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnResetParryRNG" to="." method="_on_btn_reset_parry_rng_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/BtnReset" to="." method="_on_btn_reset_pressed"]
