@@ -396,6 +396,8 @@ func receive_hit(hit: Dictionary) -> StringName:
 		
 		if success:
 			# Parry perfecto: 0 daño, stagger al atacante 1.0s
+			if visual != null:
+				visual.play_parry_success_flash()
 			var source = hit.get("source")
 			if source != null and is_instance_valid(source):
 				if source.has_method("stagger"):

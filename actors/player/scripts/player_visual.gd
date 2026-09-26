@@ -21,9 +21,11 @@ var is_looping: bool = true
 var is_playing: bool = true
 
 @onready var sprite: Sprite2D = $Sprite
+@onready var parry_flash_sprite: Sprite2D = $ParryFlash
 
 # Cache textures in memory to prevent repeated disk I/O
 var _texture_cache: Dictionary = {}
+var _parry_flash_tween: Tween
 
 # Secuencia actual: cada elemento es {tex: Texture2D, frame: int, fps: float}
 # Se usa cuando la animación necesita combinar frames de múltiples strips.
@@ -258,6 +260,30 @@ func restart() -> void:
 		_update_sequence_frame()
 	else:
 		_update_sprite_frame()
+
+func play_parry_success_flash() -> void:
+	if parry_flash_sprite == null:
+		return
+
+	if _parry_flash_tween != null and _parry_flash_tween.is_valid():
+		_parry_flash_tween.kill()
+
+	parry_flash_sprite.visible = true
+	parry_flash_sprite.frame = 0
+	parry_flash_sprite.modulate = Color.WHITE
+	_parry_flash_tween = create_tween()
+	for frame in range(1, 9):
+		_parry_flash_tween.tween_callback(_set_parry_flash_frame.bind(frame)).set_delay(0.04)
+	_parry_flash_tween.tween_property(parry_flash_sprite, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.08)
+	_parry_flash_tween.tween_callback(_hide_parry_flash)
+
+func _set_parry_flash_frame(frame: int) -> void:
+	if parry_flash_sprite != null:
+		parry_flash_sprite.frame = frame
+
+func _hide_parry_flash() -> void:
+	if parry_flash_sprite != null:
+		parry_flash_sprite.visible = false
 
 func get_action_entry(action: String) -> Dictionary:
 	for key in SPRITE_TABLE:

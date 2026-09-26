@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://csfrl4ni6fjvq" path="res://actors/player/sprites/combat_sword.png" id="4_combat_sword"]
 [ext_resource type="Script" path="res://actors/player/scripts/player_visual.gd" id="5_visual"]
 [ext_resource type="Script" path="res://actors/player/scripts/player_combat.gd" id="6_combat"]
+[ext_resource type="Texture2D" path="res://assets/characters/player/parry/destello.png" id="7_parry_flash"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gg1gd"]
 size = Vector2(14, 10)
@@ -261,6 +262,15 @@ script = ExtResource("5_visual")
 
 [node name="Sprite" type="Sprite2D" parent="Visual" unique_id=2002]
 position = Vector2(0, -12)
+
+[node name="ParryFlash" type="Sprite2D" parent="Visual" unique_id=2003]
+visible = false
+position = Vector2(0, -12)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("7_parry_flash")
+hframes = 3
+vframes = 3
+z_index = 1
 
 [node name="SpriteCombate" type="Sprite2D" parent="." unique_id=1284671246]
 visible = false
