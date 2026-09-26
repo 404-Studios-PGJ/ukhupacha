@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyAttack" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_attack.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+kind = 1
+damage = 24.0
+windup = 1.0
+active = 0.15
+recovery = 1.0
+armored = true
+ranged = true
+projectile_speed = 140.0
+projectile_range = 220.0
+projectile_radius = 4.0

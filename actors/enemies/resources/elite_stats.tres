@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_stats.gd" id="1_stats"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/shield_white.tres" id="2_white"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/heavy_red.tres" id="3_red"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/boss_leap.tres" id="4_leap"]
+[ext_resource type="PackedScene" path="res://actors/enemies/helix_minion.tscn" id="5_minion"]
+
+[resource]
+script = ExtResource("1_stats")
+max_hp = 150.0
+move_speed = 50.0
+turn_speed = 300.0
+attack_range = 60.0
+attack_width = 42.0
+white_attack = ExtResource("2_white")
+red_attack = ExtResource("3_red")
+red_attack_every = 2
+danger_attack = ExtResource("4_leap")
+danger_hp_ratio = 0.4
+danger_cooldown = 5.0
+summon_scene = ExtResource("5_minion")
+summon_hp_ratios = PackedFloat32Array(0.75, 0.5, 0.25)
+summon_count = 2
+summon_max_alive = 3
