@@ -24,6 +24,8 @@ func _ready() -> void:
 func _on_door_state_changed(changed_id: StringName, is_open: bool) -> void:
 	if changed_id == StringName(door_id):
 		_apply_state(is_open)
+		if is_open:
+			MusicDirector.play_sfx(&"rift" if door_id == "rift" else &"door")
 
 
 func _apply_state(is_open: bool) -> void:

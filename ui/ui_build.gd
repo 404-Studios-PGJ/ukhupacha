@@ -30,6 +30,7 @@ static func button(parent: Node, text: String, bounds: Rect2, action: Callable, 
 	node.text = text
 	if primary:
 		node.theme_type_variation = &"PrimaryButton"
+	node.pressed.connect(func() -> void: MusicDirector.play_sfx(&"menu"))
 	node.pressed.connect(action)
 	place(node, parent, bounds)
 	return node

@@ -28,6 +28,7 @@ func interact(player: Node) -> void:
 	else:
 		player.call(method, StringName(equipment_id))
 	Level1Progress.set_flag(StringName("has_" + equipment_id))
+	MusicDirector.play_sfx(&"pickup")
 
 
 func _on_flag_changed(_flag: StringName, _value: bool) -> void:
