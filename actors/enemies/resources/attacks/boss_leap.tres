@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyAttack" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_attack.gd" id="1_attack"]
+
+[resource]
+script = ExtResource("1_attack")
+kind = 1
+damage = 30.0
+windup = 0.9
+active = 0.6
+recovery = 1.4
+armored = true
+leap = true
+leap_max_distance = 170.0
+impact_radius = 54.0
+leap_height = 60.0

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_stats.gd" id="1_stats"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/guard_white.tres" id="2_white"]
+
+[resource]
+script = ExtResource("1_stats")
+max_hp = 40.0
+move_speed = 45.0
+turn_speed = 0.0
+attack_range = 22.0
+white_attack = ExtResource("2_white")
+red_attack_every = 0
+front_block_arc_deg = 0.0

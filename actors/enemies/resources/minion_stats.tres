@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://actors/enemies/resources/enemy_stats.gd" id="1_stats"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/attacks/minion_saw.tres" id="2_saw"]
+
+[resource]
+script = ExtResource("1_stats")
+max_hp = 20.0
+move_speed = 60.0
+detection_radius = 160.0
+lose_distance = 220.0
+attack_range = 20.0
+attack_width = 14.0
+white_attack = ExtResource("2_saw")

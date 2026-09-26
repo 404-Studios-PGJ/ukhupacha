@@ -78,6 +78,8 @@ func watch_enemy(enemy: Node) -> void:
 		enemy.connect("enemy_alerted", enemy_alerted)
 	if enemy.has_signal("enemy_died"):
 		enemy.connect("enemy_died", enemy_died)
+	if enemy.has_signal("enemy_calmed"):
+		enemy.connect("enemy_calmed", enemy_calmed)
 	enemy.tree_exiting.connect(_enemy_exiting.bind(id), CONNECT_ONE_SHOT)
 
 
@@ -99,6 +101,13 @@ func enemy_died(enemy: Node) -> void:
 	var id: int = enemy.get_instance_id()
 	_active.erase(id)
 	_dead[id] = true
+	_select_track()
+
+
+func enemy_calmed(enemy: Node) -> void:
+	if not is_instance_valid(enemy):
+		return
+	_active.erase(enemy.get_instance_id())
 	_select_track()
 
 
@@ -162,7 +171,7 @@ func reset_session() -> void:
 		var enemy: Node = _watched[id].get_ref() as Node
 		if not is_instance_valid(enemy):
 			continue
-		for pair: Array in [["enemy_alerted", enemy_alerted], ["enemy_died", enemy_died], ["tree_exiting", _enemy_exiting.bind(id)]]:
+		for pair: Array in [["enemy_alerted", enemy_alerted], ["enemy_died", enemy_died], ["enemy_calmed", enemy_calmed], ["tree_exiting", _enemy_exiting.bind(id)]]:
 			if enemy.has_signal(pair[0]) and enemy.is_connected(pair[0], pair[1]):
 				enemy.disconnect(pair[0], pair[1])
 	_watched.clear()
