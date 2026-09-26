@@ -29,6 +29,6 @@ func interact(player: Node) -> void:
 	super.interact(player)
 	if is_instance_valid(_dialog):
 		_dialog.close()
-	_dialog = DialogScript.new()
+	_dialog = DialogScript.instantiate() as InteractionDialog
 	add_child(_dialog)
 	_dialog.setup_puzzle(player, self)

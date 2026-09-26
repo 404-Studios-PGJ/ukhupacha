@@ -1,0 +1,52 @@
+# Runtime UI Asset Manifest
+
+Generated from the five approved layout files in `docs/ui/reference/layout/`.
+Only non-null `source_asset` PNGs are included. Source pack labels: **Book Styles** = `Complete_UI_Book_Styles_Pack_Free_v1.0`; **Essential** = `Complete_UI_Essential_Pack_Free`.
+
+The closest semantic runtime folder is used where a source asset is not a literal match: play icon is placed with button assets; frame markers and popups are placed with panels; selection frames and badges are placed with slots; points, markers, and separators are placed with decorations.
+
+| Repository destination | Original `source_asset` | Source pack | Screens and element IDs | Composition modes | Nine-sliced | Patch margins |
+|---|---|---|---|---|---|---|
+| `assets/ui/bars/UI_TravelBook_Bar01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Bar01a.png` | Book Styles | equipment_menu: power_bar_frame, guard_bar_frame, reach_bar_frame | scaled | no | — |
+| `assets/ui/bars/UI_TravelBook_Fill01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Fill01a.png` | Book Styles | equipment_menu: power_bar_fill, guard_bar_fill, reach_bar_fill | scaled | no | — |
+| `assets/ui/bars/UI_Flat_Bar07a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Bar07a.png` | Essential | hud: health_bar_frame, stamina_bar_frame | scaled | no | — |
+| `assets/ui/bars/UI_Flat_BarFill01c.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_BarFill01c.png` | Essential | hud: stamina_bar_fill | scaled | no | — |
+| `assets/ui/bars/UI_Flat_BarFill01d.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_BarFill01d.png` | Essential | hud: health_bar_fill | scaled | no | — |
+| `assets/ui/buttons/UI_TravelBook_IconPlay01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconPlay01a.png` | Book Styles | main_menu: begin_icon; pause_menu: resume_icon | scaled | no | — |
+| `assets/ui/buttons/UI_Flat_InputField01a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_InputField01a.png` | Essential | main_menu: continue_button, archive_button; pause_menu: dossier_button, settings_button, restart_button, exit_button | nine_slice | yes | left/top/right/bottom 8 |
+| `assets/ui/buttons/UI_Flat_InputField02a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_InputField02a.png` | Essential | main_menu: begin_button; pause_menu: resume_button | nine_slice | yes | left/top/right/bottom 8 |
+| `assets/ui/buttons/UI_Flat_Select01a_2.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Select01a_2.png` | Essential | main_menu: begin_left_cap, begin_right_cap; pause_menu: resume_left_cap, resume_right_cap | direct | no | — |
+| `assets/ui/decorations/UI_TravelBook_Line01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Line01a.png` | Book Styles | equipment_menu: selected_heading_separator; main_menu: surface_separator, fault_separator, below_separator; puzzle_terminal: knowledge_separator | scaled | no | — |
+| `assets/ui/decorations/UI_TravelBook_Marker01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Marker01a.png` | Book Styles | equipment_menu: title_left_marker, title_right_marker; hud: interaction_marker; main_menu: surface_marker, fault_marker, below_marker; pause_menu: title_left_marker, title_right_marker, left_side_marker, right_side_marker; puzzle_terminal: evidence_a_marker, evidence_b_marker, evidence_c_marker, knowledge_marker | scaled | no | — |
+| `assets/ui/decorations/UI_TravelBook_Point01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Point01a.png` | Book Styles | hud: anomaly_point_1, anomaly_point_2, anomaly_point_3, anomaly_point_4; main_menu: gold_point, purple_point | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconArrow01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconArrow01a.png` | Book Styles | main_menu: continue_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconCross01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconCross01a.png` | Book Styles | pause_menu: exit_icon; puzzle_terminal: false_state_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconEnergy01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconEnergy01a.png` | Book Styles | hud: stamina_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconGear01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconGear01a.png` | Book Styles | pause_menu: settings_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconHeart01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconHeart01a.png` | Book Styles | hud: health_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconHome01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconHome01a.png` | Book Styles | main_menu: archive_icon; pause_menu: dossier_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconRestart01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconRestart01a.png` | Book Styles | pause_menu: restart_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconStar01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconStar01a.png` | Book Styles | equipment_menu: selected_item_icon, field_slot_icon_1, field_slot_icon_2, field_slot_icon_3; hud: weapon_icon, shield_icon; puzzle_terminal: evidence_a_icon, evidence_b_icon, evidence_c_icon | scaled | no | — |
+| `assets/ui/icons/UI_TravelBook_IconTick01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconTick01a.png` | Book Styles | equipment_menu: ready_icon; puzzle_terminal: evidence_a_verified_icon, evidence_b_verified_icon, evidence_c_verified_icon, valid_state_icon | scaled | no | — |
+| `assets/ui/pages/UI_TravelBook_BookCover01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookCover01a.png` | Book Styles | equipment_menu: dossier_cover; main_menu: menu_cover; pause_menu: pause_cover | scaled | no | — |
+| `assets/ui/pages/UI_TravelBook_BookPageLeft01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookPageLeft01a.png` | Book Styles | equipment_menu: left_page | scaled | no | — |
+| `assets/ui/pages/UI_TravelBook_BookPageRight01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookPageRight01a.png` | Book Styles | equipment_menu: right_page | scaled | no | — |
+| `assets/ui/panels/UI_TravelBook_Frame01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Frame01a.png` | Book Styles | equipment_menu: loadout_tab, pack_tab, notes_tab | nine_slice | yes | left/top/right/bottom 4 |
+| `assets/ui/panels/UI_TravelBook_Popup01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Popup01a.png` | Book Styles | equipment_menu: field_note_panel; hud: interaction_popup; pause_menu: secondary_action_shelf; puzzle_terminal: evidence_a_panel, evidence_b_panel, evidence_c_panel, knowledge_panel | nine_slice | yes | 7 for equipment/hud/puzzle; 8 for pause |
+| `assets/ui/panels/UI_Flat_Banner04a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Banner04a.png` | Essential | equipment_menu: title_banner; main_menu: title_banner; pause_menu: title_banner | nine_slice, scaled | mixed | 6 for nine-slice uses; none for scaled use |
+| `assets/ui/panels/UI_Flat_Frame03a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Frame03a.png` | Essential | hud: vitals_frame, loadout_frame; main_menu: title_frame; pause_menu: pause_inner_frame; puzzle_terminal: terminal_chassis, terminal_header | nine_slice | yes | 10 hud/header; 11 main menu; 12 pause/chassis |
+| `assets/ui/panels/UI_Flat_FrameMarker01a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_FrameMarker01a.png` | Essential | puzzle_terminal: valid_state_chip | nine_slice | yes | left/top/right/bottom 7 |
+| `assets/ui/panels/UI_Flat_FrameMarker02a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_FrameMarker02a.png` | Essential | puzzle_terminal: false_state_chip | nine_slice | yes | left/top/right/bottom 7 |
+| `assets/ui/panels/UI_Flat_FrameMarker03a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_FrameMarker03a.png` | Essential | puzzle_terminal: anomaly_badge | nine_slice | yes | left/top/right/bottom 7 |
+| `assets/ui/prompts/UI_TravelBook_CommandPress01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_CommandPress01a.png` | Book Styles | hud: interaction_command_glyph | scaled | no | — |
+| `assets/ui/slots/UI_TravelBook_FrameSelect01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_FrameSelect01a.png` | Book Styles | equipment_menu: equipped_badge | nine_slice | yes | left/top/right/bottom 4 |
+| `assets/ui/slots/UI_TravelBook_Select01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Select01a.png` | Book Styles | equipment_menu: selected_item_frame; puzzle_terminal: evidence_a_medallion, evidence_b_medallion, evidence_c_medallion | scaled | no | — |
+| `assets/ui/slots/UI_TravelBook_Slot01a.png` | `Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Slot01a.png` | Book Styles | equipment_menu: field_slot_1, field_slot_2, field_slot_3, field_slot_4 | scaled | no | — |
+| `assets/ui/slots/UI_Flat_FrameSlot03a.png` | `Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_FrameSlot03a.png` | Essential | equipment_menu: selected_item_slot; hud: weapon_slot, shield_slot | scaled | no | — |
+
+## Validation scope
+
+- Layout inputs: `hud.json`, `main_menu.json`, `equipment_menu.json`, `pause_menu.json`, `puzzle_terminal.json`.
+- Source resolution is relative to `~/Descargas/menus/`.
+- Runtime PNGs are direct byte copies of those sources; no spritesheets, Aseprite files, promotional screenshots, or unreferenced PNGs are included.
+- `assets/ui/licenses/` was preserved unchanged.

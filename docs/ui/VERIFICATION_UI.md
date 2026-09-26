@@ -1,31 +1,17 @@
-# Verificación bloque 3
+# Reference UI verification
 
-Godot MCP: 4.7.2-stable (official), viewport 640×360, 24/09/2026.
+Godot 4.7.2, logical viewport 640×360. The five approved layouts were rendered at runtime in the simulated `ui_lab` host and compared with `docs/ui/reference/mockups/`.
 
-- Se abrieron las 19 escenas existentes: nueve UI, ui_lab, las nueve previas.
-- Se ejecutaron ui_lab (20/20), puzzle_lab (29/29) y Playground (smoke).
-- 37/37 texturas PNG cargadas por ResourceLoader, ninguna nula.
-- Logs finales del editor y de las ejecuciones verificadas: cero errores y
-  cero advertencias. Los fallos detectados durante desarrollo se corrigieron
-  y se repitieron las pruebas correspondientes.
-- Capturas runtime inspeccionadas: main, HUD, equipo, pausa, controles y puzzle.
-  Se verificaron tamaños de paneles/botones usados, tipografía legible,
-  esquinas de nueve parches, HP rojo y stamina verde.
-- Teclas reales MCP: Tab abre/cierra equipo; Esc abre/cierra pausa;
-  input y paused cambian/restauran juntos.
-- Casos UI: lectura inicial sin señales, señales de salud/stamina/equipo,
-  pausa real del Player simulado, navegación anidada, input previamente
-  bloqueado, inventario descubierto, ausencia de confirmación optimista,
-  muerte/Retry, Nueva partida, HUD único, Player sin API, puzzle/error/reintento,
-  cierre del puzzle y ending.
+- Godot project import completed; the subsequent headless project parse reported no GDScript errors.
+- Runtime ResourceLoader check: 36/36 approved PNGs exist and load; 36 generated `.import` sidecars are present.
+- `ui_lab.run_checks()`: 20/20 passed, including initial Player state, health/stamina/equipment signals, discovery filtering, delayed equipment confirmation, pause/input restoration, missing Player API, New Game/Retry, single HUD, puzzle invalid/retry/close and ending.
+- `puzzle_lab.run_checks()`: 29/29 passed.
+- Actual Tab and Esc key events opened/closed equipment and pause. Modal state, tree pause and Player input were checked after both transitions; one UIFlow instance remained.
+- Direct viewport pointer events hovered an equipment slot, selected `axe`, and activated its Equip badge; the simulated Player and equipment signal both reported `axe`. Keyboard focus plus Enter also selected a slot. The Continue surface closed the main menu while preserving a discovered item and restoring input/pause.
+- Runtime screenshots exist for HUD, main, equipment, pause and puzzle at exactly 640×360 in `docs/ui/reference/runtime_comparison/`.
+- JSON source assets use TextureRect or NinePatchRect with exact margins. The HUD mockup world placeholder is omitted. The only programmatic artwork on approved screens is puzzle relation shafts and arrowheads.
+- No approved scene references deleted legacy PNGs. `project.godot` and the unrelated README files were not edited in this refactor.
 
-Reproducir: F6 en tests/interactables/ui_lab.tscn, Nueva partida y botón Pruebas.
-También se puede ejecutar por MCP game_eval:
-`return await get_tree().current_scene.run_checks()`.
-En laboratorio Quit emite la intención sin cerrar el proceso (allow_quit=false);
-en UIFlow de producción allow_quit=true solicita salida del árbol.
+The runtime comparisons retain known differences: Godot fallback typography versus the compositor fonts; GPU tint and nine patch scaling versus Pillow; neutral main menu background instead of the mockup checker placeholder; real/simulated gameplay behind HUD and dimmed modals instead of mockup scenery; actual equipment and evidence state in place of fictional copy. No coordinate corrections were applied. See `docs/ui/reference/REFERENCE_UI_IMPLEMENTATION.md` for details.
 
-No verificado: Player final, enemigos/salas reales, mando, export, integración
-de las cinco salas. No se afirma fidelidad tipográfica exacta: fuente final
-pendiente. El diseño es una reconstrucción funcional del layout, no un raster.
-Listado exacto de archivos del bloque en FILES_UI_FLOW.txt.
+To repeat in the editor, run `res://tests/interactables/ui_lab.tscn` and evaluate `await get_tree().current_scene.run_checks()`. Run `res://tests/interactables/puzzle_lab.tscn` the same way. The five screen roots can also be opened directly in the editor; visual content is constructed when the scenes run.

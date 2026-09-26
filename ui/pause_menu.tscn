@@ -1,12 +1,1204 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://luv0bm7yeas0"]
 
-[ext_resource type="Script" path="res://ui/menu_screen.gd" id="1"]
+[ext_resource type="Script" uid="uid://dbw2c6o553f0b" path="res://ui/menu_screen.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cfeyqgfjuhh7g" path="res://assets/ui/pages/UI_TravelBook_BookCover01a.png" id="2_cover"]
+[ext_resource type="Texture2D" uid="uid://ckpddp4ts3gnw" path="res://assets/ui/panels/UI_Flat_Frame03a.png" id="3_frame"]
+[ext_resource type="Texture2D" uid="uid://fckk5y043y8b" path="res://assets/ui/panels/UI_Flat_Banner04a.png" id="4_banner"]
+[ext_resource type="Texture2D" uid="uid://cybhftoo1exb7" path="res://assets/ui/decorations/UI_TravelBook_Marker01a.png" id="5_marker"]
+[ext_resource type="Texture2D" uid="uid://c8k8p7mquhxwj" path="res://assets/ui/buttons/UI_Flat_InputField02a.png" id="6_resume"]
+[ext_resource type="Texture2D" uid="uid://cfu8d57q78t1n" path="res://assets/ui/buttons/UI_Flat_Select01a_2.png" id="7_cap"]
+[ext_resource type="Texture2D" uid="uid://urc0t6hnugeh" path="res://assets/ui/buttons/UI_TravelBook_IconPlay01a.png" id="8_play"]
+[ext_resource type="Texture2D" uid="uid://bxgcja6wghly1" path="res://assets/ui/panels/UI_TravelBook_Popup01a.png" id="9_shelf"]
+[ext_resource type="Texture2D" uid="uid://1jjxrjrtj2oe" path="res://assets/ui/buttons/UI_Flat_InputField01a.png" id="10_button"]
+[ext_resource type="Texture2D" uid="uid://cy3ccur4tsjmx" path="res://assets/ui/icons/UI_TravelBook_IconHome01a.png" id="11_home"]
+[ext_resource type="Texture2D" uid="uid://cyrckmao2t4e1" path="res://assets/ui/icons/UI_TravelBook_IconGear01a.png" id="12_gear"]
+[ext_resource type="Texture2D" uid="uid://d01x2rsdm2e1u" path="res://assets/ui/icons/UI_TravelBook_IconRestart01a.png" id="13_restart"]
 
-[node name="pause_menu" type="Control"]
-script = ExtResource("1")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_reb5t"]
+load_path = "res://.godot/imported/UI_TravelBook_IconCross01a.png-effe058477ae2c189b7fd3b304f2c677.ctex"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hit"]
+
+[sub_resource type="Animation" id="Animation_reb5t"]
+length = 0.28
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DimOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PauseCover:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PauseCover:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.03, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.97, 0.97), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PauseInnerFrame:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.03, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PauseInnerFrame:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.03, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.97, 0.97), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TitleBanner:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextFieldPaused:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TitleLeftMarker:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TitleRightMarker:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TextHelixExpedition:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.1, 0.22),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SecondaryActionShelf:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("ResumeButton:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("ResumeIcon:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("TextResumeDescent:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ResumeLeftCap:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("DossierButton:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("DossierIcon:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("TextDossier:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("SettingsButton:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("SettingsIcon:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("TextSettings:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.14, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("RestartButton:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("RestartIcon:modulate")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("TextRestart:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("ExitButton:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("ExitIcon:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("TextExit:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("LeftSideMarker:modulate")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("RightSideMarker:modulate")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("TextSignalBelow:modulate")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0.18, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jcxce"]
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ResumeButton:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ResumeIcon:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextResumeDescent:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DossierButton:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DossierIcon:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextDossier:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SettingsButton:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SettingsIcon:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TextSettings:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("RestartButton:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("RestartIcon:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("TextRestart:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("ExitButton:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ExitIcon:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("TextExit:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("SecondaryActionShelf:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.08),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("TitleBanner:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("TextFieldPaused:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("TitleLeftMarker:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("TitleRightMarker:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("TextHelixExpedition:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("LeftSideMarker:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("RightSideMarker:modulate")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("TextSignalBelow:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("PauseCover:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("PauseCover:scale")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.97, 0.97)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("PauseInnerFrame:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("PauseInnerFrame:scale")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0.02, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.97, 0.97)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("DimOverlay:modulate")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0.06, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_72dg2"]
+_data = {
+&"pause_enter": SubResource("Animation_reb5t"),
+&"pause_exit": SubResource("Animation_jcxce")
+}
+
+[node name="pause_menu" type="Control" unique_id=2101069423]
+texture_filter = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_script")
 screen_id = "pause"
+
+[node name="DimOverlay" type="ColorRect" parent="." unique_id=549277114]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.45)
+
+[node name="PauseCover" type="TextureRect" parent="." unique_id=1460852737]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 2
+layout_mode = 0
+offset_left = 77.0
+offset_top = 24.0
+offset_right = 563.0
+offset_bottom = 340.0
+pivot_offset = Vector2(243, 158)
+mouse_filter = 2
+texture = ExtResource("2_cover")
+expand_mode = 1
+
+[node name="PauseInnerFrame" type="NinePatchRect" parent="." unique_id=122136845]
+self_modulate = Color(0.270588, 0.211765, 0.317647, 1)
+z_index = 3
+layout_mode = 0
+offset_left = 118.0
+offset_top = 53.0
+offset_right = 522.0
+offset_bottom = 310.0
+pivot_offset = Vector2(202, 128.5)
+texture = ExtResource("3_frame")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="TitleBanner" type="NinePatchRect" parent="." unique_id=1745231776]
+self_modulate = Color(0.788235, 0.592157, 0.270588, 1)
+z_index = 4
+layout_mode = 0
+offset_left = 165.0
+offset_top = 30.0
+offset_right = 475.0
+offset_bottom = 82.0
+texture = ExtResource("4_banner")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="TextFieldPaused" type="Label" parent="." unique_id=1691639653]
+z_index = 5
+layout_mode = 0
+offset_left = 199.0
+offset_top = 37.0
+offset_right = 435.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.196078, 0.152941, 0.129412, 1)
+theme_override_font_sizes/font_size = 27
+text = "MISIÓN EN PAUSA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLeftMarker" type="TextureRect" parent="." unique_id=539604438]
+self_modulate = Color(0.878431, 0.741176, 0.427451, 1)
+z_index = 6
+layout_mode = 0
+offset_left = 156.0
+offset_top = 47.0
+offset_right = 196.0
+offset_bottom = 75.0
+mouse_filter = 2
+texture = ExtResource("5_marker")
+expand_mode = 1
+
+[node name="TitleRightMarker" type="TextureRect" parent="." unique_id=1258796216]
+self_modulate = Color(0.878431, 0.741176, 0.427451, 1)
+z_index = 7
+layout_mode = 0
+offset_left = 444.0
+offset_top = 47.0
+offset_right = 484.0
+offset_bottom = 75.0
+mouse_filter = 2
+texture = ExtResource("5_marker")
+expand_mode = 1
+flip_h = true
+
+[node name="TextHelixExpedition" type="Label" parent="." unique_id=979707266]
+z_index = 8
+layout_mode = 0
+offset_left = 244.0
+offset_top = 94.0
+offset_right = 395.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.435294, 0.560784, 0.439216, 1)
+theme_override_font_sizes/font_size = 9
+text = "EXPEDICIÓN HÉLIX // 00:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="NinePatchRect" parent="." unique_id=159018484]
+self_modulate = Color(0.788235, 0.592157, 0.270588, 1)
+z_index = 9
+layout_mode = 0
+offset_left = 175.0
+offset_top = 121.0
+offset_right = 465.0
+offset_bottom = 182.0
+texture = ExtResource("6_resume")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="ResumeLeftCap" type="TextureRect" parent="." unique_id=1040040185]
+self_modulate = Color(0.309804, 0.607843, 0.407843, 1)
+z_index = 10
+layout_mode = 0
+offset_left = 178.0
+offset_top = 134.0
+offset_right = 215.0
+offset_bottom = 169.0
+mouse_filter = 2
+texture = ExtResource("7_cap")
+expand_mode = 1
+
+[node name="ResumeIcon" type="TextureRect" parent="." unique_id=2112206545]
+self_modulate = Color(0.847059, 0.780392, 0.635294, 1)
+z_index = 12
+layout_mode = 0
+offset_left = 188.0
+offset_top = 141.0
+offset_right = 208.0
+offset_bottom = 161.0
+mouse_filter = 2
+texture = ExtResource("8_play")
+expand_mode = 1
+
+[node name="TextResumeDescent" type="Label" parent="." unique_id=134182306]
+z_index = 13
+layout_mode = 0
+offset_left = 251.0
+offset_top = 140.0
+offset_right = 403.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(0.196078, 0.152941, 0.129412, 1)
+theme_override_font_sizes/font_size = 14
+text = "REANUDAR DESCENSO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SecondaryActionShelf" type="NinePatchRect" parent="." unique_id=706662898]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 14
+layout_mode = 0
+offset_left = 158.0
+offset_top = 195.0
+offset_right = 482.0
+offset_bottom = 283.0
+texture = ExtResource("9_shelf")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="DossierButton" type="NinePatchRect" parent="." unique_id=1944125551]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 15
+layout_mode = 0
+offset_left = 175.0
+offset_top = 207.0
+offset_right = 309.0
+offset_bottom = 236.0
+texture = ExtResource("10_button")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="DossierIcon" type="TextureRect" parent="." unique_id=55629921]
+self_modulate = Color(0.847059, 0.780392, 0.635294, 1)
+z_index = 16
+layout_mode = 0
+offset_left = 188.0
+offset_top = 211.0
+offset_right = 208.0
+offset_bottom = 231.0
+mouse_filter = 2
+texture = ExtResource("11_home")
+expand_mode = 1
+
+[node name="TextDossier" type="Label" parent="." unique_id=188076973]
+z_index = 17
+layout_mode = 0
+offset_left = 216.0
+offset_top = 210.0
+offset_right = 298.0
+offset_bottom = 230.0
+theme_override_colors/font_color = Color(0.847059, 0.780392, 0.635294, 1)
+theme_override_font_sizes/font_size = 14
+text = "EXPEDIENTE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsButton" type="NinePatchRect" parent="." unique_id=1464770398]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 18
+layout_mode = 0
+offset_left = 331.0
+offset_top = 207.0
+offset_right = 465.0
+offset_bottom = 236.0
+texture = ExtResource("10_button")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="SettingsIcon" type="TextureRect" parent="." unique_id=1997298809]
+self_modulate = Color(0.847059, 0.780392, 0.635294, 1)
+z_index = 19
+layout_mode = 0
+offset_left = 344.0
+offset_top = 211.0
+offset_right = 364.0
+offset_bottom = 231.0
+mouse_filter = 2
+texture = ExtResource("12_gear")
+expand_mode = 1
+
+[node name="TextSettings" type="Label" parent="." unique_id=1975873088]
+z_index = 20
+layout_mode = 0
+offset_left = 374.0
+offset_top = 210.0
+offset_right = 441.0
+offset_bottom = 230.0
+theme_override_colors/font_color = Color(0.847059, 0.780392, 0.635294, 1)
+theme_override_font_sizes/font_size = 14
+text = "AJUSTES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="NinePatchRect" parent="." unique_id=1820854594]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 21
+layout_mode = 0
+offset_left = 175.0
+offset_top = 243.0
+offset_right = 309.0
+offset_bottom = 272.0
+texture = ExtResource("10_button")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="RestartIcon" type="TextureRect" parent="." unique_id=558757342]
+self_modulate = Color(0.847059, 0.780392, 0.635294, 1)
+z_index = 22
+layout_mode = 0
+offset_left = 188.0
+offset_top = 247.0
+offset_right = 208.0
+offset_bottom = 267.0
+mouse_filter = 2
+texture = ExtResource("13_restart")
+expand_mode = 1
+
+[node name="TextRestart" type="Label" parent="." unique_id=362322968]
+z_index = 23
+layout_mode = 0
+offset_left = 217.0
+offset_top = 247.0
+offset_right = 285.0
+offset_bottom = 267.0
+theme_override_colors/font_color = Color(0.847059, 0.780392, 0.635294, 1)
+theme_override_font_sizes/font_size = 14
+text = "REINICIAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="NinePatchRect" parent="." unique_id=1377792473]
+self_modulate = Color(0.164706, 0.141176, 0.133333, 1)
+z_index = 24
+layout_mode = 0
+offset_left = 331.0
+offset_top = 243.0
+offset_right = 465.0
+offset_bottom = 272.0
+texture = ExtResource("10_button")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="ExitIcon" type="TextureRect" parent="." unique_id=936667634]
+self_modulate = Color(0.847059, 0.780392, 0.635294, 1)
+z_index = 25
+layout_mode = 0
+offset_left = 344.0
+offset_top = 247.0
+offset_right = 364.0
+offset_bottom = 267.0
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_reb5t")
+expand_mode = 1
+
+[node name="TextExit" type="Label" parent="." unique_id=309064133]
+z_index = 26
+layout_mode = 0
+offset_left = 386.0
+offset_top = 246.0
+offset_right = 420.0
+offset_bottom = 266.0
+theme_override_colors/font_color = Color(0.847059, 0.780392, 0.635294, 1)
+theme_override_font_sizes/font_size = 14
+text = "SALIR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftSideMarker" type="TextureRect" parent="." unique_id=1496588008]
+self_modulate = Color(0.462745, 0.317647, 0.560784, 1)
+z_index = 27
+layout_mode = 0
+offset_left = 93.0
+offset_top = 137.0
+offset_right = 139.0
+offset_bottom = 169.0
+mouse_filter = 2
+texture = ExtResource("5_marker")
+expand_mode = 1
+
+[node name="RightSideMarker" type="TextureRect" parent="." unique_id=242418459]
+self_modulate = Color(0.462745, 0.317647, 0.560784, 1)
+z_index = 28
+layout_mode = 0
+offset_left = 501.0
+offset_top = 137.0
+offset_right = 547.0
+offset_bottom = 169.0
+mouse_filter = 2
+texture = ExtResource("5_marker")
+expand_mode = 1
+flip_h = true
+
+[node name="TextSignalBelow" type="Label" parent="." unique_id=93968062]
+z_index = 29
+layout_mode = 0
+offset_left = 247.0
+offset_top = 317.0
+offset_right = 426.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.462745, 0.317647, 0.560784, 1)
+theme_override_font_sizes/font_size = 8
+text = "LA SEÑAL CONTINÚA EN LAS PROFUNDIDADES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeHit" type="Button" parent="." unique_id=1662414422]
+z_index = 100
+layout_mode = 0
+offset_left = 176.0
+offset_top = 120.0
+offset_right = 466.0
+offset_bottom = 181.0
+focus_neighbor_left = NodePath("../ResumeHit")
+focus_neighbor_top = NodePath("../ExitHit")
+focus_neighbor_right = NodePath("../ResumeHit")
+focus_neighbor_bottom = NodePath("../DossierHit")
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+
+[node name="DossierHit" type="Button" parent="." unique_id=1360696831]
+z_index = 100
+layout_mode = 0
+offset_left = 176.0
+offset_top = 208.0
+offset_right = 310.0
+offset_bottom = 237.0
+focus_neighbor_left = NodePath("../DossierHit")
+focus_neighbor_top = NodePath("../ResumeHit")
+focus_neighbor_right = NodePath("../SettingsHit")
+focus_neighbor_bottom = NodePath("../RestartHit")
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+
+[node name="SettingsHit" type="Button" parent="." unique_id=1422438227]
+z_index = 100
+layout_mode = 0
+offset_left = 331.0
+offset_top = 207.0
+offset_right = 465.0
+offset_bottom = 236.0
+focus_neighbor_left = NodePath("../DossierHit")
+focus_neighbor_top = NodePath("../ResumeHit")
+focus_neighbor_right = NodePath("../SettingsHit")
+focus_neighbor_bottom = NodePath("../ExitHit")
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+
+[node name="RestartHit" type="Button" parent="." unique_id=153787013]
+z_index = 100
+layout_mode = 0
+offset_left = 175.0
+offset_top = 244.0
+offset_right = 309.0
+offset_bottom = 273.0
+focus_neighbor_left = NodePath("../RestartHit")
+focus_neighbor_top = NodePath("../DossierHit")
+focus_neighbor_right = NodePath("../ExitHit")
+focus_neighbor_bottom = NodePath("../RestartHit")
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+
+[node name="ExitHit" type="Button" parent="." unique_id=1849811604]
+z_index = 100
+layout_mode = 0
+offset_left = 329.0
+offset_top = 232.0
+offset_right = 463.0
+offset_bottom = 261.0
+focus_neighbor_left = NodePath("../RestartHit")
+focus_neighbor_top = NodePath("../SettingsHit")
+focus_neighbor_right = NodePath("../ExitHit")
+focus_neighbor_bottom = NodePath("../ExitHit")
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hit")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=331380074]
+libraries/ = SubResource("AnimationLibrary_72dg2")

@@ -15,6 +15,9 @@ var _prior_input: bool = false
 var _prior_pause: bool = false
 var _locked: bool = false
 var _prior_focus: Control
+var _closing_screen := false
+var run_elapsed_seconds: float = 0.0
+var _run_active := false
 const SCENES: Dictionary[StringName, PackedScene] = {
 	&"main": preload("res://ui/main_menu.tscn"),
 	&"pause": preload("res://ui/pause_menu.tscn"),
@@ -37,8 +40,22 @@ func _ready() -> void:
 		hud = preload("res://ui/hud.tscn").instantiate() as GameHUD
 		add_child(hud)
 	bind_player(get_tree().get_first_node_in_group(&"player"))
+	_run_active = not start_in_menu
 	if start_in_menu:
 		open_screen(&"main")
+
+
+func _process(delta: float) -> void:
+	if _run_active and current_screen == &"" and not get_tree().paused:
+		run_elapsed_seconds += delta
+
+
+func get_run_time_text() -> String:
+	var total := maxi(0, int(run_elapsed_seconds))
+	var hours := int(total / 3600.0)
+	var minutes := int((total % 3600) / 60.0)
+	var seconds := total % 60
+	return "%02d:%02d:%02d" % [hours, minutes, seconds]
 
 
 func bind_player(value: Node) -> void:
@@ -56,7 +73,10 @@ func bind_player(value: Node) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"pausa") and not event.is_echo():
 		if current_screen in [&"pause", &"equipment"]:
-			close_screen()
+			if current_screen == &"equipment" and modal is EquipmentMenu:
+				(modal as EquipmentMenu).request_close()
+			else:
+				close_screen()
 		elif current_screen == &"controls":
 			open_screen(_return_screen)
 		elif current_screen == &"" and UIBuild.input_enabled(player):
@@ -66,7 +86,10 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"equipo") and not event.is_echo():
 		if current_screen == &"equipment":
-			close_screen()
+			if modal is EquipmentMenu:
+				(modal as EquipmentMenu).request_close()
+			else:
+				close_screen()
 		elif current_screen == &"" and UIBuild.input_enabled(player):
 			open_screen(&"equipment")
 		else:
@@ -94,10 +117,24 @@ func open_screen(id: StringName) -> void:
 		(modal as EquipmentMenu).player = player
 	add_child(modal)
 	modal.connect("action_requested", _on_action)
+	if id == &"pause" and modal is MenuScreen:
+		(modal as MenuScreen).set_expedition_time(get_run_time_text())
 	hud.visible = id in [&"pause", &"equipment"]
 
 
 func close_screen() -> void:
+	if _closing_screen:
+		return
+	if current_screen == &"pause" and modal is MenuScreen:
+		var pause_menu := modal as MenuScreen
+		if pause_menu.is_pause_intro_running():
+			pause_menu.cancel_pause_transition()
+		else:
+			_closing_screen = true
+			await pause_menu.play_pause_exit()
+			_closing_screen = false
+			if modal != pause_menu:
+				return
 	if is_instance_valid(modal):
 		remove_child(modal)
 		modal.queue_free()
@@ -124,6 +161,8 @@ func restart_session(reason: StringName) -> bool:
 		return false
 	close_screen()
 	Level1Progress.reset()
+	run_elapsed_seconds = 0.0
+	_run_active = true
 	restart_requested.emit(reason)
 	bind_player(get_tree().get_first_node_in_group(&"player"))
 	hud.bind_player(player)
@@ -137,6 +176,13 @@ func _on_action(action: StringName) -> void:
 		&"close":
 			close_screen()
 		&"controls":
+			_return_screen = current_screen
+			open_screen(&"controls")
+		&"equipment":
+			open_screen(&"equipment")
+		&"continue":
+			close_screen()
+		&"archive":
 			_return_screen = current_screen
 			open_screen(&"controls")
 		&"back":

@@ -6,6 +6,10 @@ var _locked_player: bool = false
 var _prior_input: bool = false
 var _body: Label
 var _choices: VBoxContainer
+@onready var _dialog_root: Control = $DialogRoot
+@onready var _heading: Label = $DialogRoot/HeadingLabel
+@onready var _subheading: Label = $DialogRoot/SubheadingLabel
+@onready var _choices_host: VBoxContainer = $DialogRoot/ChoicesContainer
 var _puzzle: PuzzleTerminalView
 
 
@@ -13,19 +17,12 @@ func setup(player: Node, heading: String, body: String) -> void:
 	_player = player
 	layer = 20
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	var root: Control = Control.new()
-	add_child(root)
-	UIBuild.screen(root)
-	UIBuild.panel(root, Rect2(0, 0, 640, 360))
-	UIBuild.header(root, heading, "ARCHIVO / HELIX")
-	UIBuild.panel(root, Rect2(24, 64, 592, 242), &"Dossier")
-	var panel: VBoxContainer = VBoxContainer.new()
-	UIBuild.place(panel, root, Rect2(42, 80, 556, 210))
-	_body = UIBuild.label(panel, body, Rect2(0, 0, 556, 94))
-	_body.custom_minimum_size = Vector2(556, 94)
+	_heading.text = heading
+	_subheading.text = "ARCHIVO / HELIX"
+	_body = $DialogRoot/BodyLabel
+	_body.text = body
 	_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_choices = VBoxContainer.new()
-	panel.add_child(_choices)
+	_choices = _choices_host
 	if is_instance_valid(_player) and _player.has_method("set_input_enabled"):
 		_prior_input = UIBuild.input_enabled(_player)
 		_player.call("set_input_enabled", false)
@@ -36,6 +33,8 @@ func setup(player: Node, heading: String, body: String) -> void:
 func setup_puzzle(player: Node, terminal: Node) -> void:
 	layer = 20
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_dialog_root.visible = false
+	$DimLayer.visible = false
 	_puzzle = preload("res://ui/puzzle_terminal.tscn").instantiate() as PuzzleTerminalView
 	_puzzle.player = player
 	_puzzle.terminal = terminal

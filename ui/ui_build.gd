@@ -21,8 +21,6 @@ static func panel(parent: Node, bounds: Rect2, variant: StringName = &"Panel") -
 	var node: Panel = Panel.new()
 	node.theme_type_variation = variant
 	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if variant in [&"Dossier", &"Knowledge"]:
-		node.material = UIAssets.ink(&"panel" if variant == &"Dossier" else &"warm_charcoal")
 	place(node, parent, bounds)
 	return node
 
@@ -35,45 +33,6 @@ static func button(parent: Node, text: String, bounds: Rect2, action: Callable, 
 	node.pressed.connect(action)
 	place(node, parent, bounds)
 	return node
-
-
-static func icon(parent: Node, id: StringName, bounds: Rect2, tint: StringName = &"warm_cream") -> TextureRect:
-	var node: TextureRect = TextureRect.new()
-	node.texture = UIAssets.texture(id)
-	node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	node.self_modulate = UIAssets.color(tint)
-	node.material = UIAssets.ink(tint)
-	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	place(node, parent, bounds)
-	return node
-
-
-static func patch(parent: Node, id: StringName, bounds: Rect2, tint: StringName) -> NinePatchRect:
-	var node: NinePatchRect = NinePatchRect.new()
-	node.texture = UIAssets.texture(id)
-	node.patch_margin_left = 5
-	node.patch_margin_top = 5
-	node.patch_margin_right = 5
-	node.patch_margin_bottom = 5
-	node.self_modulate = UIAssets.color(tint)
-	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	place(node, parent, bounds)
-	return node
-
-
-static func rule(parent: Node, bounds: Rect2, token: StringName = &"gold") -> ColorRect:
-	var node: ColorRect = ColorRect.new()
-	node.color = UIAssets.color(token)
-	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	place(node, parent, bounds)
-	return node
-
-
-static func header(parent: Node, title: String, metadata: String) -> void:
-	label(parent, title, Rect2(24, 9, 420, 28), &"Heading")
-	label(parent, metadata, Rect2(460, 15, 160, 18), &"Muted")
-	rule(parent, Rect2(0, 44, 640, 2))
 
 
 static func footer(parent: Node, text: String) -> Label:
@@ -110,3 +69,22 @@ static func state(player: Node) -> Dictionary:
 		if result is Dictionary:
 			return result
 	return {}
+
+
+static func hit_area(parent: Control, bounds: Rect2, action: Callable, name: String = "") -> Button:
+	var hit_button := Button.new()
+	hit_button.text = ""
+	hit_button.flat = true
+	for style_state: String in ["normal", "hover", "pressed", "disabled"]:
+		hit_button.add_theme_stylebox_override(style_state, StyleBoxEmpty.new())
+	var focus_style := StyleBoxFlat.new()
+	focus_style.bg_color = Color.TRANSPARENT
+	focus_style.draw_center = false
+	focus_style.border_color = UIAssets.color(&"light_gold")
+	focus_style.set_border_width_all(1)
+	hit_button.add_theme_stylebox_override("focus", focus_style)
+	hit_button.pressed.connect(action)
+	hit_button.name = name
+	place(hit_button, parent, bounds)
+	hit_button.z_index = 100
+	return hit_button

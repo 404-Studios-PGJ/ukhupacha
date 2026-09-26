@@ -6,6 +6,7 @@ var flow: UIFlow
 var results: Array[Dictionary] = []
 var _status: Label
 var testing: bool = false
+var _terminal_helper: Interactable
 
 
 func _ready() -> void:
@@ -21,10 +22,8 @@ func _ready() -> void:
 	canvas.add_child(root)
 	UIBuild.screen(root)
 	UIBuild.panel(root, Rect2(0, 0, 640, 360))
-	var architecture: HybridGeometry = HybridGeometry.new()
-	UIBuild.place(architecture, root, Rect2(0, 0, 640, 360))
 	UIBuild.label(root, "LAB / UI · PLAYER SIMULADO", Rect2(24, 100, 560, 24), &"Heading")
-	UIBuild.label(root, "Esc: pausa · Tab: equipo · E: terminal", Rect2(24, 135, 560, 24))
+	UIBuild.label(root, "Esc: pausa · F: equipo · E: terminal", Rect2(24, 135, 560, 24))
 	var button: Button = UIBuild.button(root, "Descubrir equipo", Rect2(24, 180, 180, 36), discover)
 	button.name = "Discover"
 	UIBuild.button(root, "Simular muerte", Rect2(220, 180, 180, 36), player.damage)
@@ -49,11 +48,15 @@ func discover() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"interactuar") and flow.current_screen == &"":
+		if is_instance_valid(_terminal_helper) and is_instance_valid(_terminal_helper._dialog):
+			return
 		for id: StringName in [&"record_a", &"record_b", &"record_c"]:
 			Level1Progress.set_flag(id)
-		var terminal: Interactable = preload("res://interactables/access_terminal.tscn").instantiate() as Interactable
-		add_child(terminal)
-		terminal.interact(player)
+		if not is_instance_valid(_terminal_helper):
+			_terminal_helper = preload("res://interactables/access_terminal.tscn").instantiate() as Interactable
+			_terminal_helper.name = "TerminalHelper"
+			add_child(_terminal_helper)
+		_terminal_helper.interact(player)
 
 
 func _frames(count: int = 3) -> void:
@@ -138,6 +141,9 @@ func run_checks() -> Array[Dictionary]:
 	terminal.interact(player)
 	await _frames()
 	var view: PuzzleTerminalView = terminal._dialog._puzzle
+	var terminal_animation: AnimationPlayer = view.get_node("AnimationPlayer")
+	if terminal_animation.current_animation == &"terminal_enter":
+		await terminal_animation.animation_finished
 	view.select_evidence(&"record_c")
 	view.select_evidence(&"record_a")
 	_check("puzzle error gives hint without unlock", not Level1Progress.get_flag(&"puzzle_solved") and "Pista:" in view._rejected.text)

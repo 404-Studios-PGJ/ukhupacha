@@ -1,0 +1,1397 @@
+{
+  "screen": "equipment_menu",
+  "viewport": [
+    640,
+    360
+  ],
+  "origin": "top-left",
+  "axis": {
+    "x": "right",
+    "y": "down"
+  },
+  "elements": [
+    {
+      "id": "background",
+      "category": "background_placeholder",
+      "source_asset": null,
+      "rect": [
+        0,
+        0,
+        640,
+        360
+      ],
+      "tint": "#1B1D1F",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "primitive",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Control",
+      "parent_group": "screen_background",
+      "primitive_type": "composite_field",
+      "coordinates": [
+        0,
+        0,
+        640,
+        360
+      ],
+      "fill_color": "#1B1D1F",
+      "outline_color": null,
+      "replacement_required": true,
+      "checker_fill": "#202426",
+      "checker_cell_rect": [
+        0,
+        0,
+        23,
+        23
+      ],
+      "checker_step": [
+        24,
+        24
+      ],
+      "checker_count": 203,
+      "diagonal_color": "#C99745",
+      "diagonal_width": 1,
+      "replace_with_dimmed_gameplay": true,
+      "replace_with_final_menu_background": false,
+      "hud_gameplay_background": false,
+      "z": 1
+    },
+    {
+      "id": "dossier_cover",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookCover01a.png",
+      "rect": [
+        19,
+        28,
+        602,
+        316
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        2.6875,
+        1.975
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "dossier_shell",
+      "z": 2
+    },
+    {
+      "id": "left_page",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookPageLeft01a.png",
+      "rect": [
+        55,
+        57,
+        266,
+        272
+      ],
+      "tint": "#EAD3A4",
+      "scale": [
+        2.5576923076923075,
+        1.8503401360544218
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "dossier_shell",
+      "z": 3
+    },
+    {
+      "id": "right_page",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_BookPageRight01a.png",
+      "rect": [
+        319,
+        57,
+        266,
+        272
+      ],
+      "tint": "#EAD3A4",
+      "scale": [
+        2.5576923076923075,
+        1.8503401360544218
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "dossier_shell",
+      "z": 4
+    },
+    {
+      "id": "title_banner",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_Banner04a.png",
+      "rect": [
+        125,
+        8,
+        390,
+        52
+      ],
+      "tint": "#C99745",
+      "scale": [
+        6.09375,
+        2.6
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "dossier_title",
+      "source_dimensions": [
+        64,
+        20
+      ],
+      "patch_margins": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "verify_in_godot": false,
+      "z": 5
+    },
+    {
+      "id": "text_expedition_dossier",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        163,
+        22,
+        315,
+        22
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "dossier_title",
+      "text": "EXPEDITION DOSSIER",
+      "font": "/usr/share/fonts/TTF/DejaVuSerifCondensed-Bold.ttf",
+      "font_size": 27,
+      "alignment": "center",
+      "anchor": "mm",
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 6
+    },
+    {
+      "id": "title_left_marker",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Marker01a.png",
+      "rect": [
+        116,
+        25,
+        40,
+        28
+      ],
+      "tint": "#E0BD6D",
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "dossier_title",
+      "z": 7
+    },
+    {
+      "id": "title_right_marker",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Marker01a.png",
+      "rect": [
+        484,
+        25,
+        40,
+        28
+      ],
+      "tint": "#E0BD6D",
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "dossier_title",
+      "z": 8
+    },
+    {
+      "id": "loadout_tab",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Frame01a.png",
+      "rect": [
+        70,
+        55,
+        84,
+        25
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1.3548387096774193,
+        1.7857142857142858
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "dossier_tabs",
+      "source_dimensions": [
+        62,
+        14
+      ],
+      "patch_margins": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "verify_in_godot": false,
+      "z": 9
+    },
+    {
+      "id": "text_loadout",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        93,
+        65,
+        38,
+        6
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "dossier_tabs",
+      "text": "LOADOUT",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "center",
+      "anchor": "mm",
+      "color": "#D8C7A2",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 10
+    },
+    {
+      "id": "pack_tab",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Frame01a.png",
+      "rect": [
+        161,
+        55,
+        84,
+        25
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        1.3548387096774193,
+        1.7857142857142858
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "dossier_tabs",
+      "source_dimensions": [
+        62,
+        14
+      ],
+      "patch_margins": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "verify_in_godot": false,
+      "z": 11
+    },
+    {
+      "id": "text_pack",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        192,
+        65,
+        22,
+        6
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "dossier_tabs",
+      "text": "PACK",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "center",
+      "anchor": "mm",
+      "color": "#D8C7A2",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 12
+    },
+    {
+      "id": "notes_tab",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Frame01a.png",
+      "rect": [
+        252,
+        55,
+        84,
+        25
+      ],
+      "tint": "#453651",
+      "scale": [
+        1.3548387096774193,
+        1.7857142857142858
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "dossier_tabs",
+      "source_dimensions": [
+        62,
+        14
+      ],
+      "patch_margins": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "verify_in_godot": false,
+      "z": 13
+    },
+    {
+      "id": "text_notes",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        280,
+        65,
+        27,
+        6
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "dossier_tabs",
+      "text": "NOTES",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "center",
+      "anchor": "mm",
+      "color": "#D8C7A2",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 14
+    },
+    {
+      "id": "text_selected_loadout",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        83,
+        97,
+        115,
+        9
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "selected_loadout",
+      "text": "SELECTED LOADOUT",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 12,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 15
+    },
+    {
+      "id": "selected_heading_separator",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Line01a.png",
+      "rect": [
+        82,
+        112,
+        208,
+        5
+      ],
+      "tint": "#C99745",
+      "scale": [
+        6.933333333333334,
+        2.5
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "selected_loadout",
+      "z": 16
+    },
+    {
+      "id": "selected_item_frame",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Select01a.png",
+      "rect": [
+        81,
+        128,
+        82,
+        82
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        2.7333333333333334,
+        2.7333333333333334
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "selected_loadout",
+      "z": 17
+    },
+    {
+      "id": "selected_item_slot",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Essential_Pack_Free/01_Flat_Theme/Sprites/UI_Flat_FrameSlot03a.png",
+      "rect": [
+        99,
+        145,
+        46,
+        46
+      ],
+      "tint": "#C99745",
+      "scale": [
+        1.4375,
+        1.4375
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "selected_loadout",
+      "z": 18
+    },
+    {
+      "id": "selected_item_icon",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconStar01a.png",
+      "rect": [
+        111,
+        157,
+        22,
+        20
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1.8333333333333333,
+        1.8181818181818181
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "selected_loadout",
+      "z": 19
+    },
+    {
+      "id": "text_rootcutter",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        174,
+        144,
+        90,
+        10
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "selected_loadout",
+      "text": "ROOTCUTTER",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 15,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 20
+    },
+    {
+      "id": "text_blade_tier_ii",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        174,
+        163,
+        87,
+        6
+      ],
+      "tint": "#A94B4B",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "selected_loadout",
+      "text": "BLADE // TIER II",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#A94B4B",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 21
+    },
+    {
+      "id": "equipped_badge",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_FrameSelect01a.png",
+      "rect": [
+        173,
+        178,
+        116,
+        28
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1.8709677419354838,
+        2.0
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "selected_loadout",
+      "source_dimensions": [
+        62,
+        14
+      ],
+      "patch_margins": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "verify_in_godot": false,
+      "z": 22
+    },
+    {
+      "id": "text_equipped",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        207,
+        188,
+        48,
+        10
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "selected_loadout",
+      "text": "EQUIPPED",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 10,
+      "alignment": "center",
+      "anchor": "mm",
+      "color": "#D8C7A2",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 23
+    },
+    {
+      "id": "field_slot_1",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Slot01a.png",
+      "rect": [
+        82,
+        222,
+        44,
+        44
+      ],
+      "tint": "#C99745",
+      "scale": [
+        1.4666666666666666,
+        1.4666666666666666
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 24
+    },
+    {
+      "id": "field_slot_icon_1",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconStar01a.png",
+      "rect": [
+        95,
+        234,
+        18,
+        17
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1.5,
+        1.5454545454545454
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 25
+    },
+    {
+      "id": "field_slot_2",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Slot01a.png",
+      "rect": [
+        133,
+        222,
+        44,
+        44
+      ],
+      "tint": "#76518F",
+      "scale": [
+        1.4666666666666666,
+        1.4666666666666666
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 26
+    },
+    {
+      "id": "field_slot_icon_2",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconStar01a.png",
+      "rect": [
+        146,
+        234,
+        18,
+        17
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1.5,
+        1.5454545454545454
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 27
+    },
+    {
+      "id": "field_slot_3",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Slot01a.png",
+      "rect": [
+        184,
+        222,
+        44,
+        44
+      ],
+      "tint": "#6F8F70",
+      "scale": [
+        1.4666666666666666,
+        1.4666666666666666
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 28
+    },
+    {
+      "id": "field_slot_icon_3",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconStar01a.png",
+      "rect": [
+        197,
+        234,
+        18,
+        17
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        1.5,
+        1.5454545454545454
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 29
+    },
+    {
+      "id": "field_slot_4",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Slot01a.png",
+      "rect": [
+        235,
+        222,
+        44,
+        44
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        1.4666666666666666,
+        1.4666666666666666
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "field_kit",
+      "z": 30
+    },
+    {
+      "id": "text_field_kit_04_08",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        84,
+        286,
+        97,
+        6
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "field_kit",
+      "text": "FIELD KIT  04 / 08",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 31
+    },
+    {
+      "id": "text_rootcutter_hx_17",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        347,
+        98,
+        151,
+        10
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "ROOTCUTTER / HX-17",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 14,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 32
+    },
+    {
+      "id": "text_recovered_helix_tool",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        347,
+        119,
+        108,
+        7
+      ],
+      "tint": "#76518F",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "Recovered Helix tool",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#76518F",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 33
+    },
+    {
+      "id": "text_power",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        348,
+        146,
+        24,
+        6
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "POWER",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 8,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 34
+    },
+    {
+      "id": "power_bar_frame",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Bar01a.png",
+      "rect": [
+        407,
+        142,
+        132,
+        9
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        2.129032258064516,
+        2.25
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 35
+    },
+    {
+      "id": "power_bar_fill",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Fill01a.png",
+      "rect": [
+        411,
+        145,
+        81,
+        4
+      ],
+      "tint": "#A94B4B",
+      "scale": [
+        2.7,
+        2.0
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 36
+    },
+    {
+      "id": "text_27",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        544,
+        147,
+        11,
+        6
+      ],
+      "tint": "#A94B4B",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "27",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "right_ascender",
+      "anchor": "ra",
+      "color": "#A94B4B",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 37
+    },
+    {
+      "id": "text_guard",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        348,
+        174,
+        24,
+        6
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "GUARD",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 8,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 38
+    },
+    {
+      "id": "guard_bar_frame",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Bar01a.png",
+      "rect": [
+        407,
+        170,
+        132,
+        9
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        2.129032258064516,
+        2.25
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 39
+    },
+    {
+      "id": "guard_bar_fill",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Fill01a.png",
+      "rect": [
+        411,
+        173,
+        42,
+        4
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1.4,
+        2.0
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 40
+    },
+    {
+      "id": "text_14",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        544,
+        175,
+        11,
+        6
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "14",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "right_ascender",
+      "anchor": "ra",
+      "color": "#4F9B68",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 41
+    },
+    {
+      "id": "text_reach",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        348,
+        202,
+        24,
+        6
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "REACH",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 8,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 42
+    },
+    {
+      "id": "reach_bar_frame",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Bar01a.png",
+      "rect": [
+        407,
+        198,
+        132,
+        9
+      ],
+      "tint": "#2A2422",
+      "scale": [
+        2.129032258064516,
+        2.25
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 43
+    },
+    {
+      "id": "reach_bar_fill",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Fill01a.png",
+      "rect": [
+        411,
+        201,
+        24,
+        4
+      ],
+      "tint": "#C99745",
+      "scale": [
+        0.8,
+        2.0
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 44
+    },
+    {
+      "id": "text_08",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        544,
+        203,
+        11,
+        6
+      ],
+      "tint": "#C99745",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "08",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "right_ascender",
+      "anchor": "ra",
+      "color": "#C99745",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 45
+    },
+    {
+      "id": "field_note_panel",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_Popup01a.png",
+      "rect": [
+        346,
+        230,
+        208,
+        64
+      ],
+      "tint": "#D8C7A2",
+      "scale": [
+        3.3548387096774195,
+        2.1333333333333333
+      ],
+      "composition": "nine_slice",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "NinePatchRect",
+      "parent_group": "item_details",
+      "source_dimensions": [
+        62,
+        30
+      ],
+      "patch_margins": {
+        "left": 7,
+        "top": 7,
+        "right": 7,
+        "bottom": 7
+      },
+      "verify_in_godot": false,
+      "z": 46
+    },
+    {
+      "id": "text_field_note_07",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        359,
+        244,
+        70,
+        6
+      ],
+      "tint": "#76518F",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "FIELD NOTE 07",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 9,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#76518F",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 47
+    },
+    {
+      "id": "text_cuts_vine_cable_and_the",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        359,
+        259,
+        115,
+        8
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "Cuts vine, cable and the",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Regular.ttf",
+      "font_size": 8,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 48
+    },
+    {
+      "id": "text_thin_membranes_below",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        359,
+        272,
+        101,
+        7
+      ],
+      "tint": "#322721",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "thin membranes below.",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Regular.ttf",
+      "font_size": 8,
+      "alignment": "left",
+      "anchor": null,
+      "color": "#322721",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 49
+    },
+    {
+      "id": "ready_icon",
+      "category": "asset_composite",
+      "source_asset": "Complete_UI_Book_Styles_Pack_Free_v1.0/01_TravelBookLite/Sprites/UI_TravelBook_IconTick01a.png",
+      "rect": [
+        526,
+        300,
+        23,
+        19
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1.5333333333333334,
+        1.5833333333333333
+      ],
+      "composition": "scaled",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "TextureRect",
+      "parent_group": "item_details",
+      "z": 50
+    },
+    {
+      "id": "text_ready",
+      "category": "text",
+      "source_asset": null,
+      "rect": [
+        487,
+        313,
+        24,
+        6
+      ],
+      "tint": "#4F9B68",
+      "scale": [
+        1,
+        1
+      ],
+      "composition": "text",
+      "flip_h": false,
+      "flip_v": false,
+      "godot_node": "Label",
+      "parent_group": "item_details",
+      "text": "READY",
+      "font": "/usr/share/fonts/noto/NotoSansMono-Bold.ttf",
+      "font_size": 8,
+      "alignment": "right_ascender",
+      "anchor": "ra",
+      "color": "#4F9B68",
+      "stroke_width": 0,
+      "stroke_color": null,
+      "z": 51
+    }
+  ]
+}

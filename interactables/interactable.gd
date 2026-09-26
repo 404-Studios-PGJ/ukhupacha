@@ -3,7 +3,7 @@ extends Area2D
 
 signal interacted(player: Node)
 
-const DialogScript = preload("res://ui/interaction_dialog.gd")
+const DialogScript = preload("res://ui/interaction_dialog.tscn")
 @export_range(1.0, 24.0, 1.0) var radius: float = 24.0
 @export var display_name: String = "Interactuar"
 @export var tint: Color = Color("#c99745")
@@ -53,7 +53,7 @@ func interact(player: Node) -> void:
 func show_dialog(player: Node, heading: String, body: String) -> InteractionDialog:
 	if is_instance_valid(_dialog):
 		_dialog.close()
-	var dialog: InteractionDialog = DialogScript.new()
+	var dialog: InteractionDialog = DialogScript.instantiate() as InteractionDialog
 	_dialog = dialog
 	add_child(dialog)
 	dialog.setup(player, heading, body)
