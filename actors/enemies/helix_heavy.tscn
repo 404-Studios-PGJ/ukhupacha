@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://actors/enemies/enemy_base.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/heavy_stats.tres" id="2_stats"]
+[ext_resource type="Script" path="res://actors/enemies/scripts/enemy_sprite_visual.gd" id="3_visual"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_cannon.png" id="4_cannon"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_death.png" id="5_death"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_hurt.png" id="6_hurt"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_idle.png" id="7_idle"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_jab.png" id="8_jab"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_kick.png" id="9_kick"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_run.png" id="10_run"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/cyborg/cyborg_shoot.png" id="11_shoot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyborg_hurtbox"]
+size = Vector2(16, 30)
+
+[node name="HelixHeavy" instance=ExtResource("1_base")]
+stats = ExtResource("2_stats")
+muzzle_distance = 20.0
+
+[node name="Visual" parent="."]
+script = ExtResource("3_visual")
+idle_sheet = ExtResource("7_idle")
+walk_sheet = ExtResource("10_run")
+alert_sheet = ExtResource("7_idle")
+white_attack_sheet = ExtResource("8_jab")
+red_attack_sheet = ExtResource("9_kick")
+ranged_attack_sheet = ExtResource("11_shoot")
+special_attack_sheet = ExtResource("4_cannon")
+hurt_sheet = ExtResource("6_hurt")
+death_sheet = ExtResource("5_death")
+frame_size = Vector2i(48, 48)
+body_center_x = 14.0
+white_windup_frames = PackedInt32Array(1, 2, 3)
+white_active_frames = PackedInt32Array(4)
+white_recovery_frames = PackedInt32Array(5, -1)
+red_windup_frames = PackedInt32Array(1, 2, 3)
+red_active_frames = PackedInt32Array(4)
+red_recovery_frames = PackedInt32Array(5, -1)
+ranged_windup_frames = PackedInt32Array(4)
+ranged_active_frames = PackedInt32Array(4)
+ranged_recovery_frames = PackedInt32Array(5, -1)
+special_windup_frames = PackedInt32Array(0, 1, 2, 3)
+special_active_frames = PackedInt32Array(4)
+special_recovery_frames = PackedInt32Array(5, 6, 7, -1)
+walk_fps = 8.0
+death_time = 0.6
+head_y = -42.0
+shadow_radius = 9.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+position = Vector2(10, -24)
+texture = ExtResource("7_idle")
+hframes = 4
+
+[node name="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_cyborg_hurtbox")
+
+[node name="AttackPivot" parent="."]
+position = Vector2(0, -22)
+
+[node name="Telegraph" parent="."]
+position = Vector2(0, -50)

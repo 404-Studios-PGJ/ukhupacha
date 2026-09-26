@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://actors/enemies/enemy_base.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://actors/enemies/resources/pistol_stats.tres" id="2_stats"]
+[ext_resource type="Script" path="res://actors/enemies/scripts/enemy_mana_seed_visual.gd" id="3_visual"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/guards/pistol/pistol_p1.png" id="4_walk"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/guards/pistol/pistol_pONE1.png" id="5_reaction"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/guards/pistol/pistol_pONE2.png" id="6_combat"]
+[ext_resource type="Texture2D" path="res://actors/enemies/sprites/guards/pistol/pistol_pONE3.png" id="7_attack"]
+
+[node name="HelixPistol" instance=ExtResource("1_base")]
+stats = ExtResource("2_stats")
+
+[node name="Visual" parent="."]
+script = ExtResource("3_visual")
+walk_sheet = ExtResource("4_walk")
+reaction_sheet = ExtResource("5_reaction")
+combat_sheet = ExtResource("6_combat")
+attack_sheet = ExtResource("7_attack")
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+position = Vector2(0, -12)
+texture = ExtResource("4_walk")
+hframes = 8
+vframes = 8
