@@ -1,0 +1,431 @@
+{
+  "engine": "Godot 4.7.2",
+  "scene": "res://levels/level1/level1_fachada_verde.tscn",
+  "physics": {
+    "checks": 37,
+    "failures": [],
+    "physics": [
+      {
+        "blocked": true,
+        "name": "reception west wall",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "reception east wall",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "reception north wall",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "counter front",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "counter east clearance",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "waiting sofa",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "displaced chair",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "archive shelf",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "archive opening",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "records opening",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "security approach opening",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "security closed boundary",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "office circulation",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "transition lateral dodge clearance",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "transition east jamb",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "transition west jamb",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "records east wall",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "record chair",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "reception exit",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "reception central circulation",
+        "passed": true
+      },
+      {
+        "blocked": false,
+        "name": "reception turn to connector",
+        "passed": true
+      },
+      {
+        "blocked": true,
+        "name": "office island desk",
+        "passed": true
+      }
+    ],
+    "player_count": 1
+  },
+  "traversal": [
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Reception reveal",
+          "position": {
+            "x": 256,
+            "y": 601.667419433594
+          }
+        },
+        {
+          "name": "Central circulation",
+          "position": {
+            "x": 256,
+            "y": 536.334655761719
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Reception exit",
+          "position": {
+            "x": 398.333953857422,
+            "y": 536.334655761719
+          }
+        },
+        {
+          "name": "Office transition",
+          "position": {
+            "x": 398.333953857422,
+            "y": 352.000823974609
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Office court",
+          "position": {
+            "x": 398.333953857422,
+            "y": 200.333862304688
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Security approach",
+          "position": {
+            "x": 832.331665039062,
+            "y": 200.333862304688
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Security boundary",
+          "position": {
+            "x": 832.331665039062,
+            "y": 111.667335510254
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Return through approach",
+          "position": {
+            "x": 832.331665039062,
+            "y": 198.000534057617
+          }
+        },
+        {
+          "name": "Return to office",
+          "position": {
+            "x": 400.667297363281,
+            "y": 198.000534057617
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Archive approach",
+          "position": {
+            "x": 272.333404541016,
+            "y": 286.667205810547
+          }
+        },
+        {
+          "name": "Expediente slot",
+          "position": {
+            "x": 176.666839599609,
+            "y": 286.667205810547
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Leave archive",
+          "position": {
+            "x": 270.000061035156,
+            "y": 200.333862304688
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Records approach",
+          "position": {
+            "x": 654.999877929688,
+            "y": 200.333862304688
+          }
+        },
+        {
+          "name": "Records opening",
+          "position": {
+            "x": 654.999877929688,
+            "y": 352.000823974609
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Record terminal approach",
+          "position": {
+            "x": 687.666259765625,
+            "y": 419.667785644531
+          }
+        },
+        {
+          "name": "Read position",
+          "position": {
+            "x": 641,
+            "y": 419.667785644531
+          }
+        },
+        {
+          "name": "Equipment slot",
+          "position": {
+            "x": 561.667358398438,
+            "y": 417.334442138672
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Leave records around desk",
+          "position": {
+            "x": 687.666259765625,
+            "y": 352.000823974609
+          }
+        },
+        {
+          "name": "Leave records doorway",
+          "position": {
+            "x": 657.333190917969,
+            "y": 200.333862304688
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Dodge start",
+          "position": {
+            "x": 400.667297363281,
+            "y": 200.333862304688
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Transition return",
+          "position": {
+            "x": 401.666961669922,
+            "y": 352.000823974609
+          }
+        },
+        {
+          "name": "Reception return",
+          "position": {
+            "x": 401.666961669922,
+            "y": 534.001342773438
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Counter approach",
+          "position": {
+            "x": 179.99983215332,
+            "y": 520.00146484375
+          }
+        }
+      ]
+    },
+    {
+      "failures": [],
+      "visited": [
+        {
+          "name": "Leave counter",
+          "position": {
+            "x": 179.99983215332,
+            "y": 519.741455078125
+          }
+        },
+        {
+          "name": "Reception central route",
+          "position": {
+            "x": 254.66633605957,
+            "y": 536.074645996094
+          }
+        },
+        {
+          "name": "Return to entrance",
+          "position": {
+            "x": 254.66633605957,
+            "y": 687.739990234375
+          }
+        }
+      ]
+    }
+  ],
+  "dodge": {
+    "before": {
+      "x": 400.667297363281,
+      "y": 200.333862304688
+    },
+    "after": {
+      "x": 448.333831787109,
+      "y": 200.333862304688
+    }
+  },
+  "counterCollision": {
+    "x": 179.99983215332,
+    "y": 487.003143310547
+  },
+  "runtime": {
+    "source": "game",
+    "lines": [
+      {
+        "level": "info",
+        "run_id": "r1268837-8",
+        "source": "game",
+        "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)\n"
+      }
+    ],
+    "total_count": 1,
+    "returned_count": 1,
+    "offset": 0,
+    "limit": 50,
+    "has_more": false,
+    "run_id": "r1268837-8",
+    "is_running": true,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "current_run_id": "r1268837-8",
+    "helper_live": true,
+    "session_active": true,
+    "game_status": {
+      "active": true,
+      "editor_log_cursor": 0,
+      "elapsed_msec": 131583,
+      "helper_expected": true,
+      "helper_live": true,
+      "ready": true,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 1268837,
+      "run_token": 8,
+      "session_active": true,
+      "status": "live"
+    }
+  },
+  "assetInspection": "Nine used PNGs inspected using MCP tileset_get_atlas_image before scene placement."
+}
